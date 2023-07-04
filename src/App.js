@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
+// @components
+import AppRoutes from './routes/AppRoutes';
+
+
 function App() {
+
+  const [loggedUser, setLoggedUser] = useState(JSON.parse(sessionStorage.getItem('loggedUser')));
+  const [loggedUsername, setLoggedUsername] = useState(JSON.parse(sessionStorage.getItem('loggedUserName')));
+  const [userRights, setUserRights] = useState(null);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppRoutes
+        loggedUser={loggedUser}
+        setLoggedUser={setLoggedUser}
+        loggedUsername={loggedUsername}
+        setLoggedUsername={setLoggedUsername}
+      />
     </div>
   );
 }

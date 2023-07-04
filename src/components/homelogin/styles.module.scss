@@ -1,0 +1,15 @@
+@import 'src/styles/variables';
+@import 'src/styles/mixins';
+
+.wrapper {
+    background-color: bisque;
+    width: 400px;
+    height: 200px;
+    @include flex-center;
+    margin: auto;
+
+    .loginFormWrapper {
+        @include flex-column;
+        @include flex-center;
+    }
+}

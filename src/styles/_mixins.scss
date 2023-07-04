@@ -1,0 +1,22 @@
+/** flexbox **/
+@mixin flex {
+	display: flex;
+}
+@mixin flex-column {
+	@include flex;
+	flex-direction: column;
+}
+@mixin flex-center {
+	@include flex;
+	justify-content: center;
+	align-items: center;
+}
+@mixin flex-wrap {
+	@include flex;
+	flex-wrap: wrap;
+}
+@mixin flex-space-btw {
+	@include flex;
+	justify-content: space-between;
+}
+/** end flexbox **/
