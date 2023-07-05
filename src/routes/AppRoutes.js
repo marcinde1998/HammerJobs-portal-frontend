@@ -21,11 +21,49 @@ const AppRoutes = (props) => {
         })
     }
 
+    const authUser = () => {
+        const token = props.loggedUser;
+        if (token) {
+
+            axios
+                .post('http://localhost:8080/decodingAuthorization', {}, {
+                    headers: {
+                        Authorization: props.loggedUser.jwt
+                    }
+                })
+                .then((response) => {
+                    if (response.data.success === true) {
+                        const loggedUsername = response.data.user._id;
+                        axios
+                            .get('http://localhost:8080/user/' + loggedUsername).then((res) => {
+                                const loggedUsernameRights = res.data.rights;
+                                if (loggedUsernameRights === 'administrator') {
+                                    console.log('administrator')
+                                } else if (loggedUsernameRights === 'kierownik') {
+                                    console.log('kierownik')
+                                } else if (loggedUsernameRights === 'lider') {
+                                    console.log('lider')
+                                } else if (loggedUsernameRights === 'pracownik') {
+                                    console.log('pracownik')
+                                } else {
+                                    console.log('tu bedzie funkcja else')
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error)
+                            });
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+        }
+    }
+
     useEffect(() => {
         getPeopleList();
+        authUser();
     }, []);
-
-    console.log(usersBase);
 
     return (
         <Routes>
@@ -37,14 +75,15 @@ const AppRoutes = (props) => {
                     setLoggedUser={props.setLoggedUser}
                     loggedUsername={props.loggedUsername}
                     setLoggedUsername={props.setLoggedUsername}
+                    authUser={authUser}
                 />}
             />
 
             {/* //@subpages */}
-            <Route path='/administratorpage' element={<AdministatorPage />} />
-            <Route path='/managerpage' element={<ManagerPage />} />
-            <Route path='/leaderpage' element={<LeaderPage />} />
-            <Route path='/employeepage' element={<EmployeePage />} />
+            <Route path='/administratorpage' element={<AdministatorPage authUser={authUser} />} />
+            <Route path='/managerpage' element={<ManagerPage authUser={authUser} />} />
+            <Route path='/leaderpage' element={<LeaderPage authUser={authUser} />} />
+            <Route path='/employeepage' element={<EmployeePage authUser={authUser} />} />
         </Routes>
     );
 }

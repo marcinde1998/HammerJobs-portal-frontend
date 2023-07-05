@@ -31,10 +31,6 @@ function HomeLogin(props) {
 			.then((res) => {
 				props.setLoggedUser(res.data);
 				sessionStorage.setItem('loggedUser', JSON.stringify(res.data));
-
-				props.setLoggedUsername(formData.username)
-				sessionStorage.setItem('loggedUsername', JSON.stringify(formData.username))
-
 			})
 			.catch((error) => {
 				console.log(error);
@@ -44,7 +40,7 @@ function HomeLogin(props) {
 
 	return (
 		<div className={styles.wrapper}>
-			{props.loggedUser && <Navigate to="/administratorpage" />}
+			{/* {props.loggedUser && <Navigate to="/administratorpage" />} */}
 			<form
 				className={styles.loginFormWrapper}
 				onSubmit={handleSubmit}
