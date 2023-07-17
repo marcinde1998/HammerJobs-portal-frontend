@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
 // @styles
@@ -20,7 +20,6 @@ function HomeLogin(props) {
 		})
 
 	}
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		axios
@@ -31,16 +30,18 @@ function HomeLogin(props) {
 			.then((res) => {
 				props.setLoggedUser(res.data);
 				sessionStorage.setItem('loggedUser', JSON.stringify(res.data));
+				window.location.reload();
 			})
 			.catch((error) => {
 				console.log(error);
 			})
 	}
-
-
 	return (
 		<div className={styles.wrapper}>
-			{/* {props.loggedUser && <Navigate to="/administratorpage" />} */}
+			{props.rule === 'aruleakitel' && <Navigate to="/administratorpage" />}
+			{props.rule === 'krulekkitel' && <Navigate to="/managerpage" />}
+			{props.rule === 'lrulelkitel' && <Navigate to="/leaderpage" />}
+			{props.rule === 'prulepkitel' && <Navigate to="/employeepage" />}
 			<form
 				className={styles.loginFormWrapper}
 				onSubmit={handleSubmit}

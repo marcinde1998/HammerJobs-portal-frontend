@@ -24,7 +24,6 @@ const AppRoutes = (props) => {
     const authUser = () => {
         const token = props.loggedUser;
         if (token) {
-
             axios
                 .post('http://localhost:8080/decodingAuthorization', {}, {
                     headers: {
@@ -38,13 +37,17 @@ const AppRoutes = (props) => {
                             .get('http://localhost:8080/user/' + loggedUsername).then((res) => {
                                 const loggedUsernameRights = res.data.rights;
                                 if (loggedUsernameRights === 'administrator') {
-                                    console.log('administrator')
+                                    props.setRule('aruleakitel');
+                                    sessionStorage.setItem('rule', JSON.stringify('aruleakitel'));
                                 } else if (loggedUsernameRights === 'kierownik') {
-                                    console.log('kierownik')
+                                    props.setRule('krulekkitel');
+                                    sessionStorage.setItem('rule', JSON.stringify('krulekkitel'));
                                 } else if (loggedUsernameRights === 'lider') {
-                                    console.log('lider')
+                                    props.setRule('lrulelkitel');
+                                    sessionStorage.setItem('rule', JSON.stringify('lrulelkitel'));
                                 } else if (loggedUsernameRights === 'pracownik') {
-                                    console.log('pracownik')
+                                    props.setRule('prulepkitel');
+                                    sessionStorage.setItem('rule', JSON.stringify('prulepkitel'));
                                 } else {
                                     console.log('tu bedzie funkcja else')
                                 }
@@ -76,14 +79,35 @@ const AppRoutes = (props) => {
                     loggedUsername={props.loggedUsername}
                     setLoggedUsername={props.setLoggedUsername}
                     authUser={authUser}
+                    rule={props.rule}
                 />}
             />
 
             {/* //@subpages */}
-            <Route path='/administratorpage' element={<AdministatorPage authUser={authUser} />} />
-            <Route path='/managerpage' element={<ManagerPage authUser={authUser} />} />
-            <Route path='/leaderpage' element={<LeaderPage authUser={authUser} />} />
-            <Route path='/employeepage' element={<EmployeePage authUser={authUser} />} />
+            <Route
+                path='/administratorpage'
+                element={<AdministatorPage
+                    authUser={authUser}
+                    rule={props.rule}
+                />} />
+            <Route
+                path='/managerpage'
+                element={<ManagerPage
+                    authUser={authUser}
+                    rule={props.rule}
+                />} />
+            <Route
+                path='/leaderpage'
+                element={<LeaderPage
+                    authUser={authUser}
+                    rule={props.rule}
+                />} />
+            <Route
+                path='/employeepage'
+                element={<EmployeePage
+                    authUser={authUser}
+                    rule={props.rule}
+                />} />
         </Routes>
     );
 }
