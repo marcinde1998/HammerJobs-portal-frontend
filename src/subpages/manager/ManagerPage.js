@@ -1,8 +1,28 @@
+import { useEffect } from "react";
+
 function ManagerPage(props) {	
-	return (
-		<>
-			<h1>ManagerPage</h1>
-		</>
-	);
+	const rights = 'kierownik';
+	useEffect(() => {
+		if (props.access === null || props.access !==rights) {
+			const timeoutId = setTimeout(() => {
+				window.location.reload();
+			}, 3000);
+			return () => clearTimeout(timeoutId);
+		}
+	}, [props.access]);
+
+	if (props.access === null) {
+		return (<div>Loading...</div>)
+	} else {
+		if (rights !== props.access) {
+			return (<div>Brak dostępu</div>)
+		} else if (rights === props.access) {
+			return (
+				<div>
+					<h2>Kierownik</h2>
+				</div>
+			)
+		}
+	}
 }
 export default ManagerPage;

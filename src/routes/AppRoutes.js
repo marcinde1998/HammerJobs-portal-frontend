@@ -9,9 +9,27 @@ import ManagerPage from '../subpages/manager/ManagerPage';
 import LeaderPage from '../subpages/leader/LeaderPage';
 import EmployeePage from '../subpages/employee/EmployeePage';
 import AddOrder from "../components/addorder/AddOrder";
-
+import { useEffect } from "react";
+import axios from "axios";
 
 const AppRoutes = (props) => {
+    const checkAccess = () => {
+        if (props.loggedUser) {
+            axios
+                .post('http://localhost:8080/decodeToken', {
+                    token: props.loggedUser
+                })
+                .then((res) => {
+                    props.setAccess(res.data.userRole);
+                })
+                .catch((error) => {
+                    alert('Wystąpił błąd spróbuj ponownie później');
+                });
+        }
+    }
+    useEffect(() => {
+        checkAccess();
+    }, []);
     return (
         <Routes>
             {/* //@components */}
@@ -26,7 +44,6 @@ const AppRoutes = (props) => {
                 path='/addorder'
                 element={<AddOrder
                     loggedUser={props.loggedUser}
-                    setLoggedUser={props.setLoggedUser}
                 />}
             />
             {/* //@subpages */}
@@ -34,25 +51,25 @@ const AppRoutes = (props) => {
                 path='/administratorpage'
                 element={<AdministatorPage
                     loggedUser={props.loggedUser}
-                    setLoggedUser={props.setLoggedUser}
+                    access={props.access}
                 />} />
             <Route
                 path='/managerpage'
                 element={<ManagerPage
                     loggedUser={props.loggedUser}
-                    setLoggedUser={props.setLoggedUser}
+                    access={props.access}
                 />} />
             <Route
                 path='/leaderpage'
                 element={<LeaderPage
                     loggedUser={props.loggedUser}
-                    setLoggedUser={props.setLoggedUser}
+                    access={props.access}
                 />} />
             <Route
                 path='/employeepage'
                 element={<EmployeePage
                     loggedUser={props.loggedUser}
-                    setLoggedUser={props.setLoggedUser}
+                    access={props.access}
                 />} />
         </Routes>
     );

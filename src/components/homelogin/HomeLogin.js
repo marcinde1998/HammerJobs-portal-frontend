@@ -41,8 +41,6 @@ function HomeLogin(props) {
 					navigate('/leaderpage');
 				} else if (res.data.rights === 'pracownik') {
 					navigate('/employeepage');
-				} else {
-					alert('Wystąpił błąd spróbuj ponownie później.');
 				}
 			})
 			.catch((error) => {
@@ -92,7 +90,7 @@ function HomeLogin(props) {
 				</form>
 			</div>
 		);
-	} else {
+	} else if(props.loggedUser) {
 		axios
 			.post('http://localhost:8080/decodeToken', {
 				token: props.loggedUser
@@ -111,8 +109,6 @@ function HomeLogin(props) {
 			return <Navigate to='/leaderpage' />
 		} else if (rights === 'pracownik') {
 			return <Navigate to='/employeepage' />
-		} else {
-			alert('Wystąpił błąd spróbuj ponownie później.');
 		}
 	}
 }
