@@ -1,16 +1,26 @@
 import { Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
 
 //@components
 import HomeLogin from '../components/homelogin/HomeLogin';
+import ComponentAdd from "../components/componentadd/ComponentAdd";
+import OrderAdd from "../components/orderadd/OrderAdd";
+import ListComponent from "../components/listcomponent/ListComponent";
+import ListOrder from "../components/listorder/ListOrder";
 
 //@subpages
 import AdministatorPage from '../subpages/administrator/AdministatorPage';
 import ManagerPage from '../subpages/manager/ManagerPage';
 import LeaderPage from '../subpages/leader/LeaderPage';
 import EmployeePage from '../subpages/employee/EmployeePage';
-import AddOrder from "../components/addorder/AddOrder";
-import { useEffect } from "react";
-import axios from "axios";
+
+
+
+
+
+
+
 
 const AppRoutes = (props) => {
     const checkAccess = () => {
@@ -41,11 +51,30 @@ const AppRoutes = (props) => {
                 />}
             />
             <Route
-                path='/addorder'
-                element={<AddOrder
+                path='/orderadd'
+                element={<OrderAdd
                     loggedUser={props.loggedUser}
                 />}
             />
+            <Route
+                path='/componentadd'
+                element={<ComponentAdd
+                    loggedUser={props.loggedUser}
+                />}
+            />
+            <Route
+                path='/componentlist'
+                element={<ListComponent
+                    loggedUser={props.loggedUser}
+                />}
+            />
+            <Route
+                path='/listorder'
+                element={<ListOrder
+                    loggedUser={props.loggedUser}
+                />}
+            />
+
             {/* //@subpages */}
             <Route
                 path='/administratorpage'

@@ -15,6 +15,7 @@ function App() {
     setLoggedUser(null);
     navigate('/');
   }
+  console.log(loggedUser)
   return (
     <div className="App">
       <NavBar 

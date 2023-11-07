@@ -20,6 +20,9 @@ function EmployeePage(props) {
 			return (
 				<div>
 					<h2>Pracownik</h2>
+					
+					<button>Komponenty</button>
+					
 				</div>
 			)
 		}

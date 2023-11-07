@@ -27,6 +27,7 @@ function HomeLogin(props) {
 				password: formData.password
 			})
 			.then((res) => {
+				console.log(res)
 				props.setLoggedUser(res.data.jwt);
 				sessionStorage.setItem('loggedUser', JSON.stringify(res.data.jwt));
 				axios

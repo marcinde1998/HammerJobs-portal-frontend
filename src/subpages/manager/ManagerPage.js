@@ -20,6 +20,9 @@ function ManagerPage(props) {
 			return (
 				<div>
 					<h2>Kierownik</h2>
+					<button>Faktury</button>
+					<button>Komponenty</button>
+					<button>Godziny pracownicze</button>
 				</div>
 			)
 		}
