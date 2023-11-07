@@ -6,7 +6,7 @@ function ComponentAdd() {
                 <input placeholder="nr zamówienia"></input>
                 <input placeholder="index klienta"></input>
                 <input placeholder="index wewnetrzny"></input>
-                
+                <input placeholder="index wewnetrzny"></input>
             </form>
         </div>
     )
