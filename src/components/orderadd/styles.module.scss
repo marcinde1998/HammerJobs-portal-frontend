@@ -1,0 +1,14 @@
+@import 'src/styles/variables';
+@import 'src/styles/mixins';
+
+.wrapper {
+   @include flex-center;
+   font: {
+    family: 'Roboto';
+    weight: 400;
+    size: 1, 2rem;
+}
+   h2 {
+    
+   }
+}

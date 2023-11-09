@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function UseNavigation(props) {
+export default function UseOrderAdd() {
 
 	const [formData, setFormData] = useState({
-		username: '',
-		password: ''
+		orderNumber: '',
+		clientName: ''
 	})
 	const handleInputChange = (e) => {
 		const target = e.target;
@@ -15,19 +15,17 @@ export default function UseNavigation(props) {
 			...formData,
 			[name]: target.value
 		})
-		console.log (formData);
 	}
 
 	const handleSubmit = (e) => {
-		e.preventDefault();
+		e.preventDefault(); 
 		axios
-		.post('http://localhost:8080/userLogin', {
-			username: formData.username,
-			password: formData.password
+		.post('http://localhost:8080/', { // <- dodaj adres pod który wysyłamy record dod bazy danych
+			orderNumber: formData.orderNumber,
+			clientName: formData.clientName
 		})
 		.then((res) => {
-			props.setLoggedUser(res.data);
-			localStorage.setItem('loggedUser', JSON.stringify(res.data))
+			console.log('Dodano pozycję w bazie danych: ' + res.data);
 		})
 		.catch((error) => {
 			console.log(error);

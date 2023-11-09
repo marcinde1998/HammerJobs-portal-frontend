@@ -15,13 +15,6 @@ import ManagerPage from '../subpages/manager/ManagerPage';
 import LeaderPage from '../subpages/leader/LeaderPage';
 import EmployeePage from '../subpages/employee/EmployeePage';
 
-
-
-
-
-
-
-
 const AppRoutes = (props) => {
     const checkAccess = () => {
         if (props.loggedUser) {
@@ -54,24 +47,28 @@ const AppRoutes = (props) => {
                 path='/orderadd'
                 element={<OrderAdd
                     loggedUser={props.loggedUser}
+                    access={props.access}
                 />}
             />
             <Route
                 path='/componentadd'
                 element={<ComponentAdd
                     loggedUser={props.loggedUser}
+                    access={props.access}
                 />}
             />
             <Route
                 path='/componentlist'
                 element={<ListComponent
                     loggedUser={props.loggedUser}
+                    access={props.access}
                 />}
             />
             <Route
                 path='/listorder'
                 element={<ListOrder
                     loggedUser={props.loggedUser}
+                    access={props.access}
                 />}
             />
 

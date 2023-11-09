@@ -27,7 +27,6 @@ function HomeLogin(props) {
 				password: formData.password
 			})
 			.then((res) => {
-				console.log(res)
 				props.setLoggedUser(res.data.jwt);
 				sessionStorage.setItem('loggedUser', JSON.stringify(res.data.jwt));
 				axios
@@ -58,11 +57,7 @@ function HomeLogin(props) {
 					action="http://localhost:8080/userLogin"
 					method="POST"
 				>
-					<label
-						htmlFor="username"
-					>
-						Nazwa użytkownika:
-					</label>
+					<label htmlFor="username">Nazwa użytkownika:</label>
 					<input
 						type="text"
 						id="username"
@@ -71,11 +66,7 @@ function HomeLogin(props) {
 						onChange={handleInputChange}
 						required
 					/>
-					<label
-						htmlFor="password"
-					>
-						Hasło:
-					</label>
+					<label htmlFor="password">Hasło:</label>
 					<input
 						type="password"
 						id="password"
@@ -91,7 +82,7 @@ function HomeLogin(props) {
 				</form>
 			</div>
 		);
-	} else if(props.loggedUser) {
+	} else if (props.loggedUser) {
 		axios
 			.post('http://localhost:8080/decodeToken', {
 				token: props.loggedUser
