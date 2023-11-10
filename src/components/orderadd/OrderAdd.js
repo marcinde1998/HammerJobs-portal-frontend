@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 //@Hooks
 import { useEffect } from 'react';
 import UseOrderAdd from '../orderadd/UseOrderAdd';
@@ -8,8 +10,11 @@ import styles from './styles.module.scss';
 function OrderAdd(props) {
     const {
         formData,
+        formSubmitted,
         handleInputChange,
-        handleSubmit
+        handleSubmit,
+        setFormSubmitted,
+        setFormData
     } = UseOrderAdd();
     const rights = 'administrator';
     useEffect(() => {
@@ -27,34 +32,49 @@ function OrderAdd(props) {
     } else if (rights === props.access) {
         return (
             <div className={styles.wrapper}>
-                <h2>Dodaj Zamówienie</h2>
-                <form
-                    className={styles.form}
-                    onSubmit={handleSubmit}
-                    action='http://localhost:8080/orderAdd' //do wypełnienia
-                    method='POST'
-                >
-                    <label htmlFor='number'>Numer Zamówienia:</label>
-                    <input
-                        type='text'
-                        id='number'
-                        name='number'
-                        value={formData.number}
-                        onChange={handleInputChange}
-                    ></input><br />
-                    <label htmlFor='clientName'>Klient</label>
-                    <input
-                        type='text'
-                        id='clientName'
-                        name='clientName'
-                        value={formData.clientName}
-                        onChange={handleInputChange}
-                    ></input><br />
-                    <input
-                        type="submit"
-                        value="Zapisz"
-                    />
-                </form>
+                {formSubmitted ? (
+                    <div>
+                        <h2>Pomyślnie wysłano formularz!</h2>
+                        <button onClick={() => {
+                            setFormSubmitted(false);
+                            setFormData({
+                                number: '',
+                                clientName: ''
+                            });
+                        }}>Dodaj kolejne zamówienie</button>
+                        <Link>Przejdź do listy zamówień</Link>
+                    </div>
+                ) : (
+
+                    <form
+                        className={styles.form}
+                        onSubmit={handleSubmit}
+                        action='http://localhost:8080/orderAdd'
+                        method='POST'
+                    >
+                        <h2>Dodaj Zamówienie</h2>
+                        <label htmlFor='number'>Numer Zamówienia:</label>
+                        <input
+                            type='text'
+                            id='number'
+                            name='number'
+                            value={formData.number}
+                            onChange={handleInputChange}
+                        /><br />
+                        <label htmlFor='clientName'>Klient</label>
+                        <input
+                            type='text'
+                            id='clientName'
+                            name='clientName'
+                            value={formData.clientName}
+                            onChange={handleInputChange}
+                        /><br />
+                        <input
+                            type="submit"
+                            value="Zapisz"
+                        />
+                    </form>
+                )}
             </div>
         )
     }

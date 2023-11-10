@@ -16,26 +16,43 @@ export default function UseOrderAdd() {
 			[name]: target.value
 		})
 	}
-
-	const handleSubmit = (e) => {
+	const [formSubmitted, setFormSubmitted] = useState(false);
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		axios
-			.post('http://localhost:8080/orderAdd', { // <- dodaj adres pod który wysyłamy record dod bazy danych
-				number: formData.number,
-				clientName: formData.clientName
-			})
-			.then((res) => {
-				console.log('Dodano pozycję w bazie danych: ' + res.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			})
+		try {
+		  await axios.post('http://localhost:8080/orderAdd', {
+			number: formData.number,
+			clientName: formData.clientName
+		  });
+		  setFormSubmitted(true);
+		  console.log('Dodano pozycję w bazie danych');
+		} catch (error) {
+		  console.error('Błąd podczas wysyłania danych: ', error);
+		}
+	  };
+	// const handleSubmit = (e) => {
+	// 	e.preventDefault();
+	// 	axios
+	// 		.post('http://localhost:8080/orderAdd', {
+	// 			number: formData.number,
+	// 			clientName: formData.clientName
+	// 		})
+	// 		.then((res) => {
+	// 			console.log('Dodano pozycję w bazie danych: ' + res.data);
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log(error);
+	// 		})
 
-	}
+	// }
 
 	return {
 		formData,
+		formSubmitted,
 		handleInputChange,
-		handleSubmit
+		handleSubmit,
+		setFormSubmitted,
+		setFormData
 	};
 }
+
