@@ -8,7 +8,6 @@ import styles from './styles.module.scss';
 function OrderAdd(props) {
     const {
         formData,
-        setFormData,
         handleInputChange,
         handleSubmit
     } = UseOrderAdd();
@@ -32,15 +31,15 @@ function OrderAdd(props) {
                 <form
                     className={styles.form}
                     onSubmit={handleSubmit}
-                    action='' //do wypełnienia
+                    action='http://localhost:8080/orderAdd' //do wypełnienia
                     method='POST'
                 >
-                    <label htmlFor='orderNumber'>Numer Zamówienia:</label>
+                    <label htmlFor='number'>Numer Zamówienia:</label>
                     <input
                         type='text'
-                        id='orderNumber'
-                        name='orderNumber'
-                        value={formData.orderNumber}
+                        id='number'
+                        name='number'
+                        value={formData.number}
                         onChange={handleInputChange}
                     ></input><br />
                     <label htmlFor='clientName'>Klient</label>
