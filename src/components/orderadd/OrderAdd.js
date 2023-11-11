@@ -11,6 +11,7 @@ function OrderAdd(props) {
     const {
         formData,
         formSubmitted,
+        serwerResData,
         handleInputChange,
         handleSubmit,
         setFormSubmitted,
@@ -34,7 +35,7 @@ function OrderAdd(props) {
             <div className={styles.wrapper}>
                 {formSubmitted ? (
                     <div>
-                        <h2>Pomyślnie wysłano formularz!</h2>
+                        <h2>Dodano zamówienie {serwerResData}</h2>
                         <button onClick={() => {
                             setFormSubmitted(false);
                             setFormData({

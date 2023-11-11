@@ -17,42 +17,30 @@ export default function UseOrderAdd() {
 		})
 	}
 	const [formSubmitted, setFormSubmitted] = useState(false);
+	const [serwerResData, setSerwerResData] = useState();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-		  await axios.post('http://localhost:8080/orderAdd', {
-			number: formData.number,
-			clientName: formData.clientName
-		  });
-		  setFormSubmitted(true);
-		  console.log('Dodano pozycję w bazie danych');
+			await axios.post('http://localhost:8080/orderAdd', {
+				number: formData.number,
+				clientName: formData.clientName
+			})
+				.then((res) => {
+					setFormSubmitted(true);
+					setSerwerResData(res.data.id);
+				})
 		} catch (error) {
-		  console.error('Błąd podczas wysyłania danych: ', error);
+			console.error('Błąd podczas wysyłania danych: ', error);
 		}
-	  };
-	// const handleSubmit = (e) => {
-	// 	e.preventDefault();
-	// 	axios
-	// 		.post('http://localhost:8080/orderAdd', {
-	// 			number: formData.number,
-	// 			clientName: formData.clientName
-	// 		})
-	// 		.then((res) => {
-	// 			console.log('Dodano pozycję w bazie danych: ' + res.data);
-	// 		})
-	// 		.catch((error) => {
-	// 			console.log(error);
-	// 		})
-
-	// }
-
+	};
+	
 	return {
 		formData,
 		formSubmitted,
+		serwerResData,
 		handleInputChange,
 		handleSubmit,
 		setFormSubmitted,
 		setFormData
 	};
 }
-
