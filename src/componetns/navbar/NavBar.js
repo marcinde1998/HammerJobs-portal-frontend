@@ -5,12 +5,13 @@ function NavBar(props) {
     const handleLogout = () => {
         sessionStorage.removeItem('loggedUser');
         props.setLoggedUser(null);
+        props.setAccess(null);
         navigate('/');
       }
 	return(
         <div>
             <Link>KSA Solutions </Link>
-            {props.loggedUser && props.access && <button onClick={handleLogout}>Wyloguj</button>}
+            {props.loggedUser && <button onClick={handleLogout}>Wyloguj</button>}
         </div>
     )
 }

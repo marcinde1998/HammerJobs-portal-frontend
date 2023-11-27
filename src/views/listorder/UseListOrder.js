@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 export default function UseListOrder() {
-
+    //pobieranie listy zamowien z bazy
     const [ordersList, setOrdersList] = useState();
 
     const getOrdersList = () => {
@@ -15,6 +16,8 @@ export default function UseListOrder() {
                 alert('Wystąpił błąd, spróbuj ponownie później');
             });
     }
+    
+    //formatowanie daty na normalną
     function formatDate(dateString) {
         const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         return new Date(dateString).toLocaleDateString(undefined, options);
@@ -67,6 +70,12 @@ export default function UseListOrder() {
     const currentItems = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    //Przekierowanie do widoku zarządzania zamówieniem
+    const navigate = useNavigate();
+
+    const redirectToDetailView = (orderId) => {
+        navigate(`/ordermanagement/${orderId}`);
+    };
     return {
         //pobieranie listy zamówień
         ordersList,
@@ -91,5 +100,7 @@ export default function UseListOrder() {
         totalItems: filteredOrders.length,
         currentPage,
         paginate,
+        //Przekierowanie widok zarzadzanie zamówienia
+        redirectToDetailView
     };
 }

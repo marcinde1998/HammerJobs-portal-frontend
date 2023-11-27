@@ -6,7 +6,7 @@ import UseListOrder from "./UseListOrder";
 //@Styles
 import styles from './styles.module.scss';
 
-function ListOrder() {
+function ListOrder(props) {
     const {
         //pobieranie listy zamówień
         ordersList,
@@ -30,6 +30,8 @@ function ListOrder() {
         totalItems,
         currentPage,
         paginate,
+        //Przekierowanie widok zarzadzanie zamówienia
+        redirectToDetailView
     } = UseListOrder();
 
     useEffect(() => {
@@ -85,7 +87,15 @@ function ListOrder() {
                 </thead>
                 <tbody>
                     {currentItems && currentItems.map(order => (
-                        <tr key={order.id} className={`${styles.orderStatus} ${order.status === 1 ? styles.ok : styles.nok}`}>
+                        <tr
+                            key={order.id}
+                            className={`${styles.orderStatus} ${order.status === 1 ? styles.ok : styles.nok}`}
+                            onClick={() => {
+                                redirectToDetailView(order.id);
+                                sessionStorage.setItem('orderId', JSON.stringify(order.id));
+                            }}
+                            style={{ cursor: 'pointer' }}
+                        >
                             <td>{order.id}</td>
                             <td>{order.number}</td>
                             <td>

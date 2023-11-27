@@ -26,6 +26,11 @@ function OrderAdd(props) {
             return () => clearTimeout(timeoutId);
         }
     }, [props.access]);
+    //wrócić tu
+    // useEffect(() => {
+	// 	props.setLoggedUser(JSON.parse(sessionStorage.getItem('loggedUser')));
+	// 	console.log((JSON.parse(sessionStorage.getItem('loggedUser'))))
+	// }, [])
     if (rights !== props.access) {
         return (
             <div>Brak dostępu...</div>
@@ -43,7 +48,8 @@ function OrderAdd(props) {
                                 clientName: ''
                             });
                         }}>Dodaj kolejne zamówienie</button>
-                        <Link>Przejdź do listy zamówień</Link>
+                        <Link to='/listorder'>Przejdź do listy zamówień</Link>
+                        <Link>Przejdź do zamówienia</Link>
                     </div>
                 ) : (
 

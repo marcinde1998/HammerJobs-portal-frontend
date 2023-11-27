@@ -1,22 +1,21 @@
-import { Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useEffect } from "react";
 
-//@components
-import HomeLogin from '../components/homelogin/HomeLogin';
-import ComponentAdd from "../components/componentadd/ComponentAdd";
-import OrderAdd from "../components/orderadd/OrderAdd";
-import ListComponent from "../components/listcomponent/ListComponent";
-import ListOrder from "../components/listorder/ListOrder";
+//@views
+import HomeLogin from '../views/homelogin/HomeLogin';
+import OrderAdd from "../views/orderadd/OrderAdd";
+import ListComponent from "../views/listcomponent/ListComponent";
+import ListOrder from "../views/listorder/ListOrder";
+import OrderManagement from "../views/ordermanagement/OrderManagement";
+import MainMenu from '../views/mainmenu/MainMenu';
 
-//@subpages
-import AdministatorPage from '../subpages/administrator/AdministatorPage';
-import ManagerPage from '../subpages/manager/ManagerPage';
-import LeaderPage from '../subpages/leader/LeaderPage';
-import EmployeePage from '../subpages/employee/EmployeePage';
+
 
 const AppRoutes = (props) => {
-    const checkAccess = () => {
+
+    const navigate = useNavigate();
+    const setAccess = () => {
         if (props.loggedUser) {
             axios
                 .post('http://localhost:8080/decodeToken', {
@@ -24,18 +23,31 @@ const AppRoutes = (props) => {
                 })
                 .then((res) => {
                     props.setAccess(res.data.userRole);
+                    console.log('Kod dostępu: ' + res.data.userRole);
+                    props.setLoggedUser(JSON.parse(sessionStorage.getItem('loggedUser')));
                 })
                 .catch((error) => {
-                    alert('Wystąpił błąd spróbuj ponownie później');
+                    // alert('Wystąpił błąd spróbuj ponownie później');
+                    sessionStorage.removeItem('loggedUser');
+                    props.setLoggedUser(null);
+                    props.setAccess(null);
+                    navigate('/')
                 });
+        } else if (!props.loggedUser) {
+            return(navigate('/'))
         }
     }
     useEffect(() => {
-        checkAccess();
-    }, []);
+        // Ponownie wywołaj setAccess przy zmianie props.loggedUser
+        setAccess();
+
+        // Ponownie wywołaj setAccess przy zmianie trasy
+        return () => setAccess();
+    }, [props.loggedUser, navigate]);
     return (
         <Routes>
-            {/* //@components */}
+            {/* //@views */}
+            {/*Widok Logowania*/}
             <Route
                 path='/'
                 element={<HomeLogin
@@ -43,6 +55,7 @@ const AppRoutes = (props) => {
                     setLoggedUser={props.setLoggedUser}
                 />}
             />
+            {/*Widok Dodawania Zamówienia*/}
             <Route
                 path='/orderadd'
                 element={<OrderAdd
@@ -50,13 +63,7 @@ const AppRoutes = (props) => {
                     access={props.access}
                 />}
             />
-            <Route
-                path='/componentadd'
-                element={<ComponentAdd
-                    loggedUser={props.loggedUser}
-                    access={props.access}
-                />}
-            />
+            {/*Widok wyświetlania Listy Komponentów*/}
             <Route
                 path='/componentlist'
                 element={<ListComponent
@@ -64,6 +71,7 @@ const AppRoutes = (props) => {
                     access={props.access}
                 />}
             />
+            {/*Widok wyświetlania Listy Zamówień*/}
             <Route
                 path='/listorder'
                 element={<ListOrder
@@ -71,29 +79,18 @@ const AppRoutes = (props) => {
                     access={props.access}
                 />}
             />
-
-            {/* //@subpages */}
+            {/*Widok zarządzania zamówieniem*/}
             <Route
-                path='/administratorpage'
-                element={<AdministatorPage
+                path='/ordermanagement/:id'
+                element={<OrderManagement
                     loggedUser={props.loggedUser}
                     access={props.access}
-                />} />
+                />}
+            />
+            {/*Widok głównego menu*/}
             <Route
-                path='/managerpage'
-                element={<ManagerPage
-                    loggedUser={props.loggedUser}
-                    access={props.access}
-                />} />
-            <Route
-                path='/leaderpage'
-                element={<LeaderPage
-                    loggedUser={props.loggedUser}
-                    access={props.access}
-                />} />
-            <Route
-                path='/employeepage'
-                element={<EmployeePage
+                path='/mainmenu'
+                element={<MainMenu
                     loggedUser={props.loggedUser}
                     access={props.access}
                 />} />

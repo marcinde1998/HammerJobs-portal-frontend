@@ -29,25 +29,14 @@ function HomeLogin(props) {
 			.then((res) => {
 				props.setLoggedUser(res.data.jwt);
 				sessionStorage.setItem('loggedUser', JSON.stringify(res.data.jwt));
-				axios
-					.post('http://localhost:8080/logAdd', {
-						log: 'Użytkownik: ' + formData.username + ' zalogował się'
-					})
-				if (res.data.rights === 'administrator') {
-					navigate('/administratorpage');
-				} else if (res.data.rights === 'kierownik') {
-					navigate('/managerpage');
-				} else if (res.data.rights === 'lider') {
-					navigate('/leaderpage');
-				} else if (res.data.rights === 'pracownik') {
-					navigate('/employeepage');
+				if (res.data.jwt) {
+					navigate('/mainmenu');
 				}
 			})
 			.catch((error) => {
 				alert('Nie udało się zalogować. Sprawdź poprawność nazwy użytkownika i hasła.');
 			});
 	}
-	const [rights, setRights] = useState(null);
 	if (!props.loggedUser) {
 		return (
 			<div className={styles.wrapper}>
@@ -83,25 +72,7 @@ function HomeLogin(props) {
 			</div>
 		);
 	} else if (props.loggedUser) {
-		axios
-			.post('http://localhost:8080/decodeToken', {
-				token: props.loggedUser
-			})
-			.then((res) => {
-				setRights(res.data.userRole)
-			})
-			.catch((error) => {
-				alert('Wystąpił błąd spróbuj ponownie później');
-			});
-		if (rights === 'administrator') {
-			return <Navigate to='/administratorpage' />
-		} else if (rights === 'kierownik') {
-			return <Navigate to='/managerpage' />
-		} else if (rights === 'lider') {
-			return <Navigate to='/leaderpage' />
-		} else if (rights === 'pracownik') {
-			return <Navigate to='/employeepage' />
-		}
+			return <Navigate to='/mainmenu' />
 	}
 }
 export default HomeLogin;
