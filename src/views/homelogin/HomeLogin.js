@@ -40,8 +40,12 @@ function HomeLogin(props) {
 	if (!props.loggedUser) {
 		return (
 			<div className={styles.wrapper}>
+				<div className={styles.ksaLogoBox}>
+					<span className={styles.ksaText}>KSA</span>
+					<span className={styles.solutionsText}>Solutions</span>
+				</div>
 				<form
-					className={styles.loginFormWrapper}
+					className={styles.loginFormBox}
 					onSubmit={handleSubmit}
 					action="http://localhost:8080/userLogin"
 					method="POST"
@@ -65,6 +69,7 @@ function HomeLogin(props) {
 						required
 					/>
 					<input
+						className={styles.btn}
 						type="submit"
 						value="Zaloguj"
 					/>
@@ -72,7 +77,7 @@ function HomeLogin(props) {
 			</div>
 		);
 	} else if (props.loggedUser) {
-			return <Navigate to='/mainmenu' />
+		return <Navigate to='/mainmenu' />
 	}
 }
 export default HomeLogin;
