@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import { Navigate, useNavigate } from "react-router-dom";
 
 // @styles
 import styles from './styles.module.scss';
-import { Navigate, useNavigate } from "react-router-dom";
 
 function HomeLogin(props) {
 	const navigate = useNavigate();

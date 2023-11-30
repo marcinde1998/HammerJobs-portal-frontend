@@ -25,3 +25,14 @@
 	justify-content: center;
 }
 /** end flexbox **/
+
+/** display block **/
+@mixin in-line-block{
+	display: inline-block;
+}
+@mixin in-line-block-center {
+	display: inline-block;
+	justify-content: center;
+	align-items: center;
+  }
+/** end display block **/

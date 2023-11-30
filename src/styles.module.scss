@@ -1,0 +1,7 @@
+@import 'src/styles/variables';
+@import 'src/styles/mixins';
+
+body {
+    font-family: $font-family;
+    font-weight: $font-weight;
+  }

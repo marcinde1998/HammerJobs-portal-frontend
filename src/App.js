@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import './App.css';
-
 // @components
 import AppRoutes from './routes/AppRoutes';
 import NavBar from './componetns/navbar/NavBar';
 import UseApp from './UseApp';
+
+// @styles
+import styles from './styles.module.scss';
 
 function App() {
   const {
@@ -15,7 +15,6 @@ function App() {
     access,
     setAccess
   } = UseApp();
-  console.log(access);
   return (
     <div className="App">
       <NavBar

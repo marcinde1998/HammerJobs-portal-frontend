@@ -12,7 +12,7 @@
     @include flex-space-btw;
     margin: auto;
     margin-top: 100px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    box-shadow: $box-shadow-main;
 
     font: {
         family: 'Roboto';

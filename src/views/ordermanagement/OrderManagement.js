@@ -1,45 +1,40 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
+// @styles
+import styles from './styles.module.scss';
 
 //Hooks
 import UseOrderManagement from "./UseOrderManagement";
 
-function OrderManagement(props) {
-    // useEffect(() => {
-	// 	if (props.access === null || props.access !== rights) {
-	// 		const timeoutId = setTimeout(() => {
-	// 			window.location.reload();
-	// 		}, 3000);
-	// 		return () => clearTimeout(timeoutId);
-	// 	}
-	// }, [props.access]);
-
+function OrderManagement() {
     const {
-        getIdFromSessionStorage,
+        //Pobieranie order details
         getOrderDetails,
-        orderIdFromSessionStorage
+        //Dane zamówienia
+        orderData,
+        //formatopwanie na datę
+        formatDate,
     } = UseOrderManagement();
 
     useEffect(() => {
-        getIdFromSessionStorage();
+        getOrderDetails();
     }, [])
-
-    useEffect(() => {
-        if (orderIdFromSessionStorage) {
-            getOrderDetails();
-        }
-    }, [orderIdFromSessionStorage])
-    const navigate = useNavigate();
-
-    if (props.currentOrderIdInOrderManagement) {
-        return (
-            <div>
-                <h2>Zamówienie nr: {props.currentOrderIdInOrderManagement}</h2>
+    return (
+        <div className={styles.wrapper}>
+            <div className={styles.orderDataBox}>
+                {orderData && orderData.map(data => (
+                    <div
+                    key={data.id}
+                    >
+                    <span>Nr wewnętrzny: {data.id}</span>
+                    <span>Nr klienta: {data.number}</span>
+                    <span>Status: {data.status}</span>
+                    <span>Nazwa klienta: {data.clientName}</span>
+                    <span>Data wprowadzenia: {formatDate(data.creationDate)}</span>
+                    </div> 
+               ))}
             </div>
-        )
-    }
-    else if (!props.currentOrderIdInOrderManagement) {
-        // return (navigate('/listorder'));
-    }
+        </div>
+    );
 }
 export default OrderManagement;

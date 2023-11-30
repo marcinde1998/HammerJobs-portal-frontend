@@ -68,6 +68,7 @@ export default function UseListOrder() {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
+    console.log(currentItems)
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     //Przekierowanie do widoku zarządzania zamówieniem

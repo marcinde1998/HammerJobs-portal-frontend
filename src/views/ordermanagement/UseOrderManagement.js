@@ -1,30 +1,32 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function UseOrderManagement() {
-    //Zapisywanie id zamówienia w sessionstorage
-    const [orderIdFromSessionStorage, setOrderIdFromSessionStorage] = useState();
-    const getIdFromSessionStorage = () => {
-        const orderId = sessionStorage.getItem('orderId');
-        console.log('OrderId from sessionStorage:', orderId)
-        setOrderIdFromSessionStorage(orderId);
-    }
+    //Pobieranie order details
+    const [orderId, setOrderId] = useState(JSON.parse(sessionStorage.getItem('orderId')));
+    const [orderData, setOrderData] = useState([]);
+
     const getOrderDetails = () => {
-        if (orderIdFromSessionStorage) {
             axios
-                .get('http://localhost:8080/orderById/' + orderIdFromSessionStorage)
+                .get('http://localhost:8080/orderById/' + orderId)
                 .then((res) => {
-                    // sessionStorage.setItem('orderId', JSON.stringify(res.data.id));
-                    console.log(res.data);
+                    setOrderData([res.data]);
                 })
                 .catch((error) => {
                     alert('Wystąpił błąd, spróbuj ponownie później');
-                });
-        }
+                })
+    }
+    //formatowanie daty na normalną
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
     }
     return {
-        getIdFromSessionStorage,
+        //Pobieranie order details
         getOrderDetails,
-        orderIdFromSessionStorage
+        //Dane zamówienia
+        orderData,
+        //formatopwanie na datę
+        formatDate,
     };
 }

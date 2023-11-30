@@ -23,7 +23,6 @@ const AppRoutes = (props) => {
                 })
                 .then((res) => {
                     props.setAccess(res.data.userRole);
-                    console.log('Kod dostępu: ' + res.data.userRole);
                     props.setLoggedUser(JSON.parse(sessionStorage.getItem('loggedUser')));
                 })
                 .catch((error) => {
