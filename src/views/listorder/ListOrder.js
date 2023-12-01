@@ -89,7 +89,7 @@ function ListOrder(props) {
                     {currentItems && currentItems.map(order => (
                         <tr
                             key={order.id}
-                            className={`${styles.orderStatus} ${order.status === 1 ? styles.ok : styles.nok}`}
+                            className={`${styles.orderStatus} ${order.status === 'OK' ? styles.ok : styles.nok}`}
                             onClick={() => {
                                 redirectToDetailView(order.id);
                                 sessionStorage.setItem('orderId', JSON.stringify(order.id));
@@ -99,7 +99,7 @@ function ListOrder(props) {
                             <td>{order.id}</td>
                             <td>{order.number}</td>
                             <td>
-                                {order.status === 1 ? 'OK' : 'NOK'}
+                                {order.status}
                             </td>
                             <td>{order.clientName}</td>
                             <td>{formatDate(order.creationDate)}</td>
