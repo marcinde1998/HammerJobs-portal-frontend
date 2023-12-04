@@ -21,7 +21,7 @@ export default function UseOrderAdd() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post('http://localhost:8080/orderAdd', {
+			await axios.post('http://172.22.126.11:8080/orderAdd', {
 				number: formData.number,
 				clientName: formData.clientName
 			})

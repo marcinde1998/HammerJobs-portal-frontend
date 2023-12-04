@@ -18,7 +18,7 @@ const AppRoutes = (props) => {
     const setAccess = () => {
         if (props.loggedUser) {
             axios
-                .post('http://localhost:8080/decodeToken', {
+                .post('http://172.22.126.11:8080/decodeToken', {
                     token: props.loggedUser
                 })
                 .then((res) => {

@@ -21,7 +21,7 @@ export default function UseNavigation(props) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		axios
-		.post('http://localhost:8080/userLogin', {
+		.post('http://172.22.126.11:8080/userLogin', {
 			username: formData.username,
 			password: formData.password
 		})

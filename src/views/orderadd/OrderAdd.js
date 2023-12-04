@@ -56,7 +56,7 @@ function OrderAdd(props) {
                     <form
                         className={styles.form}
                         onSubmit={handleSubmit}
-                        action='http://localhost:8080/orderAdd'
+                        action='http://172.22.126.11:8080/orderAdd'
                         method='POST'
                     >
                         <h2>Dodaj Zamówienie</h2>

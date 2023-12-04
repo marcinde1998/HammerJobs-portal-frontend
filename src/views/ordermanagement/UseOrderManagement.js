@@ -8,7 +8,7 @@ export default function UseOrderManagement() {
 
     const getOrderDetails = () => {
             axios
-                .get('http://localhost:8080/orderById/' + orderId)
+                .get('http://172.22.126.11:8080/orderById/' + orderId)
                 .then((res) => {
                     setOrderData([res.data]);
                 })

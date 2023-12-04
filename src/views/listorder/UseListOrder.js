@@ -8,7 +8,7 @@ export default function UseListOrder() {
 
     const getOrdersList = () => {
         axios
-            .get('http://localhost:8080/ordersList')
+            .get('http://172.22.126.11:8080/ordersList')
             .then((res) => {
                 setOrdersList(res.data);
             })

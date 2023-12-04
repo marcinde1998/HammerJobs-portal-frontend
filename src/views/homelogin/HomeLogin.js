@@ -22,7 +22,7 @@ function HomeLogin(props) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		axios
-			.post('http://localhost:8080/userLogin', {
+			.post('http://172.22.126.11:8080/userLogin', {
 				username: formData.username,
 				password: formData.password
 			})
@@ -34,7 +34,7 @@ function HomeLogin(props) {
 				}
 			})
 			.catch((error) => {
-				alert('Nie udało się zalogować. Sprawdź poprawność nazwy użytkownika i hasła.');
+				alert('Console.log');
 			});
 	}
 	if (!props.loggedUser) {
@@ -47,7 +47,7 @@ function HomeLogin(props) {
 				<form
 					className={styles.loginFormBox}
 					onSubmit={handleSubmit}
-					action="http://localhost:8080/userLogin"
+					action="http://172.22.126.11:8080/userLogin"
 					method="POST"
 				>
 					<label htmlFor="username">Nazwa użytkownika:</label>
