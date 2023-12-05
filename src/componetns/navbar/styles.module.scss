@@ -3,10 +3,9 @@
 
 .wrapper {
     @include flex-space-btw;
+    margin-bottom: 5px;
 
     .btn {
-        // width: 180px;
-        // height: 50px;
         @include inline-flex-center;
         text-decoration: none;
         background-color: #0693e3;

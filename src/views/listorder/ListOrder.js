@@ -44,7 +44,6 @@ function ListOrder(props) {
 
     return (
         <div className={styles.wrapper}>
-            <h2>Lista zamówień:</h2>
             <table className={styles.tableWrapper}>
                 <thead>
                     <tr>

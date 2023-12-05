@@ -4,21 +4,30 @@
 .wrapper {
     width: 99%;
     margin: auto;
-    .orderDataBox {
+
+    .orderHeaderBox {
         @include flex-center;
         border: 2px solid $border-color-main;
         box-shadow: $box-shadow-main;
         border-radius: 5px;
         padding: 10px;
+        gap: 10%;
 
-        span {
+        .orderDataBox {
+            max-width: 45%;
+            span {
+                @include in-line-block-center;
+                margin-left: 10px;
+                margin-bottom: 2px;
+                border-radius: 5px;
+                padding: 3px;
+                background-color: #0693e3;
+                color: #fff;
+            }
+        }
+        .btnBox {
+            max-width: 45%;
             @include in-line-block-center;
-            margin-left: 10px;
-            margin-bottom: 2px;
-            border-radius: 5px;
-            padding: 3px;
-            background-color: #0693e3;
-            color: #fff;
         }
     }
 }
