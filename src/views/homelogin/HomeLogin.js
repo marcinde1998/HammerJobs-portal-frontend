@@ -2,10 +2,19 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { Navigate, useNavigate } from "react-router-dom";
 
+//Hooks
+import UseHomeLogin from './UseHomeLogin';
+
 // @styles
 import styles from './styles.module.scss';
 
 function HomeLogin(props) {
+	const {
+		//Obsługa błędnego logowania
+		error,
+		setError
+	} = UseHomeLogin();
+
 	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
 		username: '',
@@ -34,7 +43,13 @@ function HomeLogin(props) {
 				}
 			})
 			.catch((error) => {
-				alert('Console.log');
+				console.log(error.response.status);
+				if (error.response.status === 401) {
+					setError("Podane błędny Login lub Hasło.");
+				}
+				if (error.response.status === 404) {
+					setError("Wystąpił nieoczekiwany błąd, proszę spróbować później.");
+				}
 			});
 	}
 	if (!props.loggedUser) {
@@ -73,6 +88,7 @@ function HomeLogin(props) {
 						type="submit"
 						value="Zaloguj"
 					/>
+					{error && <div className={styles.error}>{error}</div>}
 				</form>
 			</div>
 		);

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 export default function UseNavigation(props) {
-
+	//Obsługa logowania
 	const [formData, setFormData] = useState({
 		username: '',
 		password: ''
@@ -33,11 +33,16 @@ export default function UseNavigation(props) {
 			console.log(error);
 		})
 	}
+	//Obsługa błędnego logowania
+	const [error, setError] = useState(null);
 
 	return {
-		formData,
-		setFormData,
-		handleInputChange,
-		handleSubmit
+		// formData,
+		// setFormData,
+		// handleInputChange,
+		// handleSubmit
+		//Obsługa błędnego logowania
+		error,
+		setError
 	};
 }
