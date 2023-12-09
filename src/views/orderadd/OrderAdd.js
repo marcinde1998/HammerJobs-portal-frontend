@@ -26,11 +26,6 @@ function OrderAdd(props) {
             return () => clearTimeout(timeoutId);
         }
     }, [props.access]);
-    //wrócić tu
-    // useEffect(() => {
-	// 	props.setLoggedUser(JSON.parse(sessionStorage.getItem('loggedUser')));
-	// 	console.log((JSON.parse(sessionStorage.getItem('loggedUser'))))
-	// }, [])
     if (rights !== props.access) {
         return (
             <div>Brak dostępu...</div>
@@ -39,20 +34,34 @@ function OrderAdd(props) {
         return (
             <div className={styles.wrapper}>
                 {formSubmitted ? (
-                    <div>
-                        <h2>Dodano zamówienie {serwerResData}</h2>
-                        <button onClick={() => {
-                            setFormSubmitted(false);
-                            setFormData({
-                                number: '',
-                                clientName: ''
-                            });
-                        }}>Dodaj kolejne zamówienie</button>
-                        <Link to='/listorder'>Przejdź do listy zamówień</Link>
-                        <Link>Przejdź do zamówienia</Link>
+                    <div className={styles.orderAddNotification}>
+                        <h2>Dodano zamówienie nr: {serwerResData}</h2>
+                        <button
+                            className={styles.btn}
+                            onClick={() => {
+                                setFormSubmitted(false);
+                                setFormData({
+                                    number: '',
+                                    clientName: ''
+                                });
+                            }}>Dodaj kolejne zamówienie</button>
+                        <Link
+                            className={styles.aBtn}
+                            to='/listorder'
+                        >
+                            Przejdź do listy zamówień
+                        </Link>
+                        <Link
+                            className={styles.aBtn}
+                            to={`http://localhost:3000/ordermanagement/${serwerResData}`}
+                            onClick={() => {
+                                sessionStorage.setItem('orderId', serwerResData);
+                            }}
+                        >
+                            Przejdź do zamówienia {serwerResData}
+                        </Link>
                     </div>
                 ) : (
-
                     <form
                         className={styles.form}
                         onSubmit={handleSubmit}
@@ -60,25 +69,32 @@ function OrderAdd(props) {
                         method='POST'
                     >
                         <h2>Dodaj Zamówienie</h2>
-                        <label htmlFor='number'>Numer Zamówienia:</label>
-                        <input
-                            type='text'
-                            id='number'
-                            name='number'
-                            value={formData.number}
-                            onChange={handleInputChange}
-                        /><br />
-                        <label htmlFor='clientName'>Klient</label>
-                        <input
-                            type='text'
-                            id='clientName'
-                            name='clientName'
-                            value={formData.clientName}
-                            onChange={handleInputChange}
-                        /><br />
+                        <div className={styles.numberInput}>
+                            <label htmlFor='number'>Numer Zamówienia:</label>
+                            <input
+                                type='text'
+                                id='number'
+                                name='number'
+                                value={formData.number}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
+                        <div className={styles.clientInput}>
+                            <label htmlFor='clientName'>Klient:</label>
+                            <input
+                                type='text'
+                                id='clientName'
+                                name='clientName'
+                                value={formData.clientName}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
                         <input
                             type="submit"
-                            value="Zapisz"
+                            value="Dodaj"
+                            className={styles.btn}
                         />
                     </form>
                 )}

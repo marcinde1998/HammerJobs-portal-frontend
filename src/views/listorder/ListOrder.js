@@ -142,8 +142,3 @@ const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
         </nav>
     );
 };
-
-
-
-
-

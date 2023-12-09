@@ -13,7 +13,7 @@ export default function UseListOrder() {
                 setOrdersList(res.data);
             })
             .catch((error) => {
-                alert('Wystąpił błąd, spróbuj ponownie później');
+                //Dodaj obsługe błędów
             });
     }
     
@@ -57,10 +57,6 @@ export default function UseListOrder() {
         const statusCondition = order.status.toString().toLowerCase().startsWith(filterStatus.toLowerCase());
         const clientNameCondition = order.clientName.toLowerCase().includes(filterClientName.toLowerCase());
         const creationDateCondition = formatDate(order.creationDate).includes(filterCreationDate);
-
-        console.log('order.status:', order.status);
-        console.log('filterStatus:', filterStatus);
-        console.log('statusCondition:', statusCondition);
 
         return idCondition && numberCondition && statusCondition && clientNameCondition && creationDateCondition;
     });
