@@ -30,7 +30,7 @@ function MainMenu(props) {
 					{
 						props.access === 'administrator' && (
 							<li>
-								<Link to="/paneladministratora">Panel Administratora</Link>
+								<Link to="/adminpanel">Panel Administratora</Link>
 							</li>
 						)}
 					{

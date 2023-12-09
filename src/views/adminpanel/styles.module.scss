@@ -1,0 +1,49 @@
+@import 'src/styles/variables';
+@import 'src/styles/mixins';
+
+.wrapper {
+   width: 99%;
+   margin: auto;
+
+   .addUserFormBox {
+      @include flex-center;
+      border: 2px solid $border-color-main;
+      box-shadow: $box-shadow-main;
+      border-radius: 5px;
+      @include flex-column;
+
+      .formContent {
+         margin-bottom: 10px;
+
+         label {
+            margin-right: 5px;
+            margin-left: 5px;
+         }
+
+         .btn {
+            background-color: #0693e3;
+            color: #fff;
+            border: 1px solid;
+            border-color: #0693e3;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            padding: 5px;
+            margin-left: 5px;
+
+            font: {
+               family: 'Roboto';
+               size: 10px;
+            }
+
+         }
+
+         .btn:hover {
+            background-color: #fff;
+            color: #0693e3;
+         }
+      }
+   }
+
+
+}

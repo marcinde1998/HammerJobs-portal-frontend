@@ -9,6 +9,7 @@ import ListComponent from "../views/listcomponent/ListComponent";
 import ListOrder from "../views/listorder/ListOrder";
 import OrderManagement from "../views/ordermanagement/OrderManagement";
 import MainMenu from '../views/mainmenu/MainMenu';
+import AdminPanel from "../views/adminpanel/AdminPanel";
 
 
 
@@ -33,7 +34,7 @@ const AppRoutes = (props) => {
                     navigate('/')
                 });
         } else if (!props.loggedUser) {
-            return(navigate('/'))
+            return (navigate('/'))
         }
     }
     useEffect(() => {
@@ -90,6 +91,12 @@ const AppRoutes = (props) => {
             <Route
                 path='/mainmenu'
                 element={<MainMenu
+                    loggedUser={props.loggedUser}
+                    access={props.access}
+                />} />
+            <Route
+                path='/adminpanel'
+                element={<AdminPanel
                     loggedUser={props.loggedUser}
                     access={props.access}
                 />} />
