@@ -1,5 +1,5 @@
 //Hooks
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UseAdminPanel from './UseAdminPanel';
 
 // @styles
@@ -12,10 +12,21 @@ function AdminPanel(props) {
         formData,
         handleInputChange,
         //Obsługa wysyłania
-        handleSubmit
+        handleSubmit,
+        //Pobieranie listy użytkowników
+        getUserList,
+        userList,
+        //formatowanie na datę
+        formatDate
     } = UseAdminPanel();
 
+    useEffect(() => {
+        getUserList();
+    }, []);
 
+    // useEffect(() => {
+    //     getUserList();
+    // }, [userList]);
 
     return (
         <div className={styles.wrapper}>
@@ -61,6 +72,28 @@ function AdminPanel(props) {
             </form>
             <div className={styles.userList}>
                 <h4>Lista Użytkowników</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Numer użytkownika</th>
+                            <th>Login</th>
+                            <th>Uprawnienia</th>
+                            <th>Data dodania</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {userList && userList.map(users => (
+                            <tr
+                                key={users.id}
+                            >
+                                <td>{users.id}</td>
+                                <td>{users.username}</td>
+                                <td>{users.rights}</td>
+                                <td>{formatDate(users.creationDate)}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     );

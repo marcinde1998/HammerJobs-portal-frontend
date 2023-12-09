@@ -24,21 +24,44 @@ export default function UseAdminPanel() {
             .post('http://172.22.126.11:8080/userAdd', {
                 username: formData.username,
                 password: formData.password,
+                rights: formData.rights
             })
             .then((res) => {
-                console.log(res);
+                getUserList();
             })
             .catch((error) => {
                 //DODAJ OBSŁUGE BŁĘDÓW
             });
     }
     //Pobieranie listy użytkowników
+    const [userList, setUserList] = useState();
+    const getUserList = () => {
+        axios
+            .get('http://172.22.126.11:8080/userList')
+            .then((res) => {
+                setUserList(res.data)
+                console.log(res.data);
+            })
+            .catch (() => {
+                //DODAJ OBSŁUGE BŁĘDÓW
+            })
+    }
+    //formatowanie daty na normalną
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
 
     return {
         //Ustawianie formData
         formData,
         handleInputChange,
-         //Obsługa wysyłania
-         handleSubmit
+        //Obsługa wysyłania
+        handleSubmit,
+        //Pobieranie listy użytkowników
+        getUserList,
+        userList,
+        //formatowanie na datę
+        formatDate
     };
 }

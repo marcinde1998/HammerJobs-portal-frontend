@@ -42,6 +42,7 @@ function ListOrder(props) {
         setLocalOrdersList(ordersList || []);
     }, [ordersList, setLocalOrdersList]);
 
+    
     return (
         <div className={styles.wrapper}>
             <table className={styles.tableWrapper}>
@@ -93,7 +94,6 @@ function ListOrder(props) {
                                 redirectToDetailView(order.id);
                                 sessionStorage.setItem('orderId', JSON.stringify(order.id));
                             }}
-                            style={{ cursor: 'pointer' }}
                         >
                             <td>{order.id}</td>
                             <td>{order.number}</td>

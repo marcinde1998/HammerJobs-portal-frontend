@@ -54,9 +54,13 @@ export default function UseListOrder() {
     const filteredOrders = localOrdersList.filter(order => {
         const idCondition = order.id.toString().includes(filterId);
         const numberCondition = order.number.toString().includes(filterNumber);
-        const statusCondition = order.status.toString().includes(filterStatus);
+        const statusCondition = order.status.toString().toLowerCase().startsWith(filterStatus.toLowerCase());
         const clientNameCondition = order.clientName.toLowerCase().includes(filterClientName.toLowerCase());
         const creationDateCondition = formatDate(order.creationDate).includes(filterCreationDate);
+
+        console.log('order.status:', order.status);
+        console.log('filterStatus:', filterStatus);
+        console.log('statusCondition:', statusCondition);
 
         return idCondition && numberCondition && statusCondition && clientNameCondition && creationDateCondition;
     });

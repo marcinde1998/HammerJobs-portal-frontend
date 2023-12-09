@@ -12,12 +12,16 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
+      tr {
+         
+      }
 
       th,
       td {
          border: 1px solid #ddd;
          padding: 8px;
          text-align: left;
+         cursor: pointer;
       }
       .ok {
          background-color: rgba(6, 227, 54, 0.5); 
