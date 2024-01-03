@@ -3,47 +3,67 @@ import { useEffect } from "react";
 // @styles
 import styles from './styles.module.scss';
 
+
+
 //Hooks
 import UseOrderManagement from "./UseOrderManagement";
 
 function OrderManagement() {
     const {
-        //Pobieranie order details
-        getOrderDetails,
-        //Dane zamówienia
+        //Pobieranie order data
+        getOrderData,
         orderData,
+        //Pobieranie komponentów z zamówienia
+        orderComponents,
         //formatopwanie na datę
         formatDate,
+        //Obsługa formularza dodawania komponentu do zamówienia
+        showFormAddComponent,
+        openFormAddComponent,
+        closeFormAddComponent,
+        handleFormComponentAddChange,
+        handleComponentAddSubmit
     } = UseOrderManagement();
-
     useEffect(() => {
-        getOrderDetails();
+        getOrderData();
     }, [])
     return (
         <div className={styles.wrapper}>
+            {/* //działające */}
             <div className={styles.orderHeaderBox}>
-                {orderData && orderData.map(data => (
+                {orderData && orderData.map(dataOrder => (
                     <div
-                        key={data.id}
+                        key={dataOrder.id}
                         className={styles.orderDataBox}
                     >
-                        <span>Nr wewnętrzny: {data.id}</span>
-                        <span>Nr klienta: {data.number}</span>
-                        <span>Status: {data.status}</span>
-                        <span>Nazwa klienta: {data.clientName}</span>
-                        <span>Data wprowadzenia: {formatDate(data.creationDate)}</span>
+                        <span>Nazwa klienta: {dataOrder.clientName}</span>
+                        <span>Data dodania: {formatDate(dataOrder.creationDate)}</span>
+                        <span>Numer wewnętrzny: {dataOrder.id}</span>
+                        <span>Ostatnia modyfikacja: {dataOrder.lastModified !== null ? dataOrder.lastModified : 'brak'}</span>
+                        <span>Numer klienta: {dataOrder.number}</span>
+                        <span>status: {dataOrder.status}</span>
                     </div>
                 ))}
                 <div className={styles.btnBox}>
-                    <button>Dodaj Komponent</button>
+                    <button onClick={openFormAddComponent}>Dodaj Komponent</button>
                     <button>Dodaj Aktywność</button>
                 </div>
-            </div>
-            <div className={styles.componentBox}>
-
-            </div>
-            <div className={styles.activitiesBox}>
-
+                {showFormAddComponent && (
+                    <div className={styles.formBox}>
+                        <form
+                            onSubmit={handleComponentAddSubmit}
+                            action='http://172.22.126.11:8080/addComponentByOrdNumOrCompNum'
+                            method="POST"
+                        >
+                            <input type="text" placeholder="Nazwa komponentu" name="componentName" onChange={handleFormComponentAddChange} />
+                            <input
+                                type="submit"
+                                value="Dodaj"
+                            />
+                        </form>
+                        <button onClick={closeFormAddComponent}>Zamknij</button>
+                    </div>
+                )}
             </div>
         </div>
     );

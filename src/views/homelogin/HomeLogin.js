@@ -10,24 +10,14 @@ import styles from './styles.module.scss';
 
 function HomeLogin(props) {
 	const {
+		//Obsługa logowania
+		formData,
+		handleInputChange,
 		//Obsługa błędnego logowania
 		error,
 		setError
 	} = UseHomeLogin();
-
 	const navigate = useNavigate();
-	const [formData, setFormData] = useState({
-		username: '',
-		password: ''
-	})
-	const handleInputChange = (e) => {
-		const target = e.target;
-		const name = target.name;
-		setFormData({
-			...formData,
-			[name]: target.value
-		})
-	}
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		axios
@@ -38,6 +28,7 @@ function HomeLogin(props) {
 			.then((res) => {
 				props.setLoggedUser(res.data.jwt);
 				sessionStorage.setItem('loggedUser', JSON.stringify(res.data.jwt));
+
 				if (res.data.jwt) {
 					navigate('/mainmenu');
 				}

@@ -94,6 +94,7 @@ const AppRoutes = (props) => {
                     loggedUser={props.loggedUser}
                     access={props.access}
                 />} />
+            {/*Widok panelu administratora*/}
             <Route
                 path='/adminpanel'
                 element={<AdminPanel

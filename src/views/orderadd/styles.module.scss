@@ -14,7 +14,9 @@
       border-radius: 5px;
       margin-bottom: 5px;
    }
+
    .form {
+
       .numberInput,
       .clientInput {
          width: 40%;
@@ -36,16 +38,19 @@
             weight: 400;
          }
       }
+
       .btn:hover {
          background-color: #fff;
          color: #0693e3;
       }
    }
+
    .orderAddNotification {
       .aBtn {
          color: inherit;
          text-decoration: inherit;
       }
+
       .aBtn,
       .btn {
          color: #fff;
@@ -56,11 +61,13 @@
          margin-bottom: 5px;
          transition: background-color 0.3s;
          cursor: pointer;
+
          font: {
             weight: 400;
             size: 16px;
          }
       }
+
       .aBtn:hover,
       .btn:hover {
          background-color: #fff;
