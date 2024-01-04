@@ -6,13 +6,13 @@ export default function UseOrderManagement() {
     const [orderId, setOrderId] = useState(JSON.parse(sessionStorage.getItem('orderId')));
     const [orderData, setOrderData] = useState([]);
     const [orderComponents, setOrderComponents] = useState([]);
-
+    console.log(orderComponents);
     const getOrderData = () => {
         axios
             .get('http://172.22.126.11:8080/getOrderData/' + orderId)
             .then((res) => {
                 console.log(res.data);
-                const array = {
+                const arrayOrderData = {
                     clientName: res.data.clientName,
                     creationDate: res.data.creationDate,
                     id: res.data.id,
@@ -21,7 +21,8 @@ export default function UseOrderManagement() {
                     number: res.data.number,
                     status: res.data.status
                 }
-                setOrderData([array]);
+                setOrderData([arrayOrderData]);
+                setOrderComponents(res.data.orderComponentList);
             })
             .catch((error) => {
                 alert('Wystąpił błąd, spróbuj ponownie później');
@@ -59,11 +60,62 @@ export default function UseOrderManagement() {
             })
             .then((res) => {
                 console.log(res);
+                getOrderData();
             })
             .catch((error) => {
                 console.log('error');
             });
     }
+
+    // Obsługa formularza dodawania aktywności do komponentu
+    const [showFormAddActivity, setShowFormAddActivity] = useState(false);
+
+    const openFormAddActivity = () => {
+        if (showFormAddActivity === false) setShowFormAddActivity(!showFormAddActivity);
+    };
+    const closeFormAddActivity = () => {
+        if (showFormAddActivity === true) setShowFormAddActivity(!showFormAddActivity);
+    }
+
+    const [formDataActivityAdd, setFormDataActivityAdd] = useState({
+        name: ''
+    })
+
+    const handleActivityAddChange = (e) => {
+        const target = e.target;
+        const name = target.name;
+        console.log(formDataActivityAdd);
+        setFormDataActivityAdd({
+            ...formDataActivityAdd,
+            [name]: target.value
+        })
+    }
+
+    const handleActivityAddSubmit = (e) => {
+        e.preventDefault();
+        axios
+            .post('http://172.22.126.11:8080/activityAdd', {
+                name: formDataActivityAdd.name
+            })
+            .then((res) => {
+                console.log(res);
+                getOrderData();
+            })
+            .catch((error) => {
+                console.log('error');
+            });
+    }
+    //Obsługa tabel
+
+    const [selectedRow, setSelectedRow] = useState(null); // Stan śledzący wybrany wiersz
+
+    const handleRowClick = (index) => {
+        if (selectedRow === index) {
+            setSelectedRow(null); // Jeśli wiersz jest już zaznaczony, odznacz go
+        } else {
+            setSelectedRow(index); // W przeciwnym razie zaznacz nowy wiersz
+        }
+    };
 
     //formatowanie daty na normalną
     function formatDate(dateString) {
@@ -84,6 +136,14 @@ export default function UseOrderManagement() {
         closeFormAddComponent,
         handleFormComponentAddChange,
         handleComponentAddSubmit,
-        formDataComponentAdd
+        //Obsługa formularza dodawania aktywności do komponentu
+        showFormAddActivity,
+        openFormAddActivity,
+        closeFormAddActivity,
+        handleActivityAddChange,
+        handleActivityAddSubmit,
+        //Obsługa tabel
+        selectedRow,
+        handleRowClick,
     };
 }
