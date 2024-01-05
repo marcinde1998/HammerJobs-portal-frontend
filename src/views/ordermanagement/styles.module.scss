@@ -31,6 +31,45 @@
         .btnBox {
             max-width: 45%;
             @include in-line-block-center;
+
+            .btn {
+                background-color: #0693e3;
+                color: #fff;
+                border: 2px solid;
+                border-color: #0693e3;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                padding: 5px;
+                margin-right: 2px;
+
+                font: {
+                    family: 'Roboto';
+                    size: 16px;
+                }
+            }
+
+            .btn:hover {
+                background-color: #fff;
+                color: #0693e3;
+            }
+
+            .nBtn {
+                background-color: #ddd;
+                color: #fff;
+                border: 2px solid;
+                border-color: #ddd;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                padding: 5px;
+                margin-right: 2px;
+
+                font: {
+                    family: 'Roboto';
+                    size: 16px;
+                }
+            }
         }
 
         .formBox {
@@ -38,15 +77,46 @@
         }
     }
 
-    .componentDataBox {
-        width: 100%;
+    .componentTable {
         border: 2px solid $border-color-main;
         box-shadow: $box-shadow-main;
         border-radius: 5px;
-        padding: 10px; 
-        tbody {
-            tr:hover {
+        width: 100%;
+
+        .componentTableTbody {
+            .componentTr {
+                cursor: pointer;
+
+                td {
+                    border: 1px solid #ddd;
+                }
+            }
+
+            .componentTrIsActive {
+                // Twoje style dla wiersza, gdy selectedRow !== null
+                background-color: #0693e3; // Przykładowy kolor
+                // inne style, które chcesz dodać
+            }
+
+            .componentTr:hover {
                 background-color: #0693e3;
+            }
+
+            .activityTr {
+
+                td {
+                    border: 1px solid #ddd;
+                }
+
+                tbody {
+                    tr {
+                        cursor: pointer;
+                    }
+
+                    tr:hover {
+                        background-color: #0693e3;
+                    }
+                }
             }
         }
     }

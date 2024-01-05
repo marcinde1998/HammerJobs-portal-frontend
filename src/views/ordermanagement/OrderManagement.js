@@ -36,6 +36,7 @@ function OrderManagement() {
     useEffect(() => {
         getOrderData();
     }, [])
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.orderHeaderBox}>
@@ -53,8 +54,13 @@ function OrderManagement() {
                     </div>
                 ))}
                 <div className={styles.btnBox}>
-                    <button onClick={openFormAddComponent}>Dodaj Komponent</button>
-                    <button onClick={openFormAddActivity}>Dodaj Aktywność</button>
+                    <button onClick={openFormAddComponent} className={styles.btn}>Dodaj Komponent</button>
+                    <button
+                        onClick={selectedRow === null ? null : openFormAddActivity}
+                        className={selectedRow === null ? styles.nBtn : styles.btn}
+                    >
+                        Dodaj Aktywność
+                    </button>
                 </div>
                 {showFormAddComponent && (
                     <div className={styles.formBox}>
@@ -69,28 +75,28 @@ function OrderManagement() {
                                 value="Dodaj"
                             />
                         </form>
-                        <button onClick={closeFormAddComponent}>Zamknij</button>
+                        <button onClick={closeFormAddComponent} className={styles.btn}>Zamknij</button>
                     </div>
                 )}
                 {showFormAddActivity && (
                     <div className={styles.formBox}>
                         <form
                             onSubmit={handleActivityAddSubmit}
-                            action='http://172.22.126.11:8080/activityAdd'
+                            action='http://172.22.126.11:8080/componentActivityAdd'
                             method="POST"
                         >
-                            <input type="text" placeholder="Nazwa aktywności" name="name" onChange={handleActivityAddChange} />
+                            <input type="text" placeholder="Nazwa aktywności" name="activityName" onChange={handleActivityAddChange} />
                             <input
                                 type="submit"
                                 value="Dodaj"
                             />
                         </form>
-                        <button onClick={closeFormAddActivity}>Zamknij</button>
+                        <button onClick={closeFormAddActivity} className={styles.btn}>Zamknij</button>
                     </div>
                 )}
             </div>
-            <table>
-                <thead>
+            <table className={styles.componentTable}>
+                <thead className={styles.componentTableThead}>
                     <tr>
                         <th>Numer wewnętrzny</th>
                         <th>Nazwa komponentu</th>
@@ -99,10 +105,13 @@ function OrderManagement() {
                         <th>Status</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className={styles.componentTableTbody}>
                     {orderComponents && orderComponents.map((dataComponent, index) => (
                         <React.Fragment key={index}>
-                            <tr onClick={() => handleRowClick(index)}>
+                            <tr
+                                onClick={() => handleRowClick(index, dataComponent.id)}
+                                className={selectedRow === index ? styles.componentTrIsActive : styles.componentTr}
+                            >
                                 <td>{dataComponent.id}</td>
                                 <td>{dataComponent.componentId}</td>
                                 <td>{formatDate(dataComponent.creationDate)}</td>
@@ -110,8 +119,8 @@ function OrderManagement() {
                                 <td>{dataComponent.status}</td>
                             </tr>
                             {selectedRow === index && dataComponent.componentActivitiesList && dataComponent.componentActivitiesList.length > 0 && (
-                                <tr>
-                                    <td colSpan="5"> {/* Używamy colSpan, aby wypełnić cały wiersz */}
+                                <tr className={styles.activityTr}>
+                                    <td colSpan="5">
                                         <table>
                                             <thead>
                                                 <tr>

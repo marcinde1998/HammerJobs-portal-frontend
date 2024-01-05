@@ -45,7 +45,6 @@ export default function UseOrderManagement() {
     const handleFormComponentAddChange = (e) => {
         const target = e.target;
         const name = target.name;
-        console.log(formDataComponentAdd);
         setFormDataComponentAdd({
             ...formDataComponentAdd,
             [name]: target.value
@@ -78,7 +77,8 @@ export default function UseOrderManagement() {
     }
 
     const [formDataActivityAdd, setFormDataActivityAdd] = useState({
-        name: ''
+        activityName: '',
+        orderDetailsId: ''
     })
 
     const handleActivityAddChange = (e) => {
@@ -94,8 +94,9 @@ export default function UseOrderManagement() {
     const handleActivityAddSubmit = (e) => {
         e.preventDefault();
         axios
-            .post('http://172.22.126.11:8080/activityAdd', {
-                name: formDataActivityAdd.name
+            .post('http://172.22.126.11:8080/componentActivityAdd', {
+                activityName: formDataActivityAdd.activityName,
+                orderDetailsId: formDataActivityAdd.orderDetailsId
             })
             .then((res) => {
                 console.log(res);
@@ -109,12 +110,18 @@ export default function UseOrderManagement() {
 
     const [selectedRow, setSelectedRow] = useState(null); // Stan śledzący wybrany wiersz
 
-    const handleRowClick = (index) => {
+    const handleRowClick = (index, dataComponentId) => {
         if (selectedRow === index) {
-            setSelectedRow(null); // Jeśli wiersz jest już zaznaczony, odznacz go
+            setSelectedRow(null);
         } else {
-            setSelectedRow(index); // W przeciwnym razie zaznacz nowy wiersz
+            setSelectedRow(index);
+            setFormDataActivityAdd(({
+                ...formDataActivityAdd,
+                orderDetailsId: parseInt(dataComponentId, 10)
+            }));
         }
+        console.log(selectedRow); // Sprawdź wartość w konsoli
+        console.log(formDataActivityAdd); // Sprawdź wartość w konsoli
     };
 
     //formatowanie daty na normalną
