@@ -127,12 +127,28 @@ export default function UseOrderManagement() {
     // Obsługa zmiany statusu aktywności
 
     const handleStatusChange = (dataActivityId, newStatus) => {
-        console.log(dataActivityId)
-        console.log(newStatus)
+        let mappedStatus;
+
+        // Mapowanie wartości newStatus na 1 lub 2
+        if (newStatus === 'OK') {
+            mappedStatus = 2;
+        } else if (newStatus === 'NOK') {
+            mappedStatus = 1;
+        } else {
+            console.log('Nieznany status:', newStatus);
+            return; // Zakończ funkcję, jeśli status jest nieznany
+        }
+
+        const dataToChangeStatusActivity = {
+            dataActivityId,
+            newStatus: mappedStatus // Ustaw wartość mappedStatus
+        };
+
+        console.log(dataToChangeStatusActivity);
         axios
             .post('http://172.22.126.11:8080/componentActivityChange', {
-                componentsActivitiesId: parseInt(dataActivityId, 10),
-                newStatusId: parseInt(newStatus, 10)
+                componentsActivitiesId: parseInt(dataToChangeStatusActivity.dataActivityId, 10),
+                newStatusId: parseInt(dataToChangeStatusActivity.newStatus, 10)
             })
             .then((res) => {
                 console.log(res);
@@ -148,6 +164,7 @@ export default function UseOrderManagement() {
         const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         return new Date(dateString).toLocaleDateString(undefined, options);
     }
+
     return {
         //Pobieranie order data
         getOrderData,
@@ -172,6 +189,10 @@ export default function UseOrderManagement() {
         selectedRow,
         handleRowClick,
         //Obsługa zmiany aktywności
-        handleStatusChange
+        handleStatusChange,
     };
 }
+
+
+
+

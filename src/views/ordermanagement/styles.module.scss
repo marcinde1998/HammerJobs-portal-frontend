@@ -99,12 +99,29 @@
             background-color: rgba(227, 54, 6, 0.8);
         }
 
-        .nok.componentTrIsActive  {
+        .nok.componentTrIsActive {
             background-color: rgba(227, 54, 6, 0.8);
         }
 
         .ok.componentTrIsActive {
             background-color: rgba(6, 227, 54, 0.8);
+        }
+
+        select {
+            width: 100%;
+            /* Wypełnij całą szerokość komórki */
+            height: 36px;
+            /* Wypełnij całą wysokość komórki */
+            padding: 0;
+            /* Usuń wypełnienie wewnętrzne */
+            margin: 0;
+            /* Usuń marginesy */
+            border: none;
+            /* Usuń obramowanie, jeśli nie jest potrzebne */
+            background-color: transparent;
+            /* Ustaw przezroczysty tło, jeśli jest potrzebne */
+            font-size: inherit;
+
         }
 
         th,
@@ -113,26 +130,31 @@
             padding: 8px;
             text-align: left;
         }
+        .selectBox {
+            padding: 0;
+            margin: 0;
+        }
 
         .activityTable {
             width: 100%;
             border-collapse: collapse;
         }
+
         .activityTable {
             .ok {
                 background-color: rgba(6, 227, 54, 0.5);
                 cursor: pointer;
             }
-    
+
             .ok:hover {
                 background-color: rgba(6, 227, 54, 0.8);
             }
-    
+
             .nok {
                 background-color: rgba(227, 54, 6, 0.5);
                 cursor: pointer;
             }
-    
+
             .nok:hover {
                 background-color: rgba(227, 54, 6, 0.8);
             }

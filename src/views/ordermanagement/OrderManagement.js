@@ -1,9 +1,8 @@
 import { useEffect } from "react";
+import React from 'react';
 
 // @styles
 import styles from './styles.module.scss';
-
-import React from 'react';
 
 //Hooks
 import UseOrderManagement from "./UseOrderManagement";
@@ -33,8 +32,10 @@ function OrderManagement() {
         selectedRow,
         handleRowClick,
         //Obsługa zmiany aktywności
-        handleStatusChange
+        handleStatusChange,
+
     } = UseOrderManagement();
+
     useEffect(() => {
         getOrderData();
     }, [])
@@ -103,6 +104,7 @@ function OrderManagement() {
                         <th>Numer wewnętrzny</th>
                         <th>Nazwa komponentu</th>
                         <th>Data dodania</th>
+                        <th>Lokalizacja</th>
                         <th>Ostatnia modyfikacja</th>
                         <th>Status</th>
                     </tr>
@@ -117,6 +119,7 @@ function OrderManagement() {
                                 <td>{dataComponent.id}</td>
                                 <td>{dataComponent.componentName}</td>
                                 <td>{formatDate(dataComponent.creationDate)}</td>
+                                <td>{dataComponent.locationName}</td>
                                 <td>{dataComponent.lastModified !== null ? dataComponent.lastModified : 'brak'}</td>
                                 <td>{dataComponent.status}</td>
                             </tr>
@@ -130,7 +133,6 @@ function OrderManagement() {
                                                     <th>Data dodania</th>
                                                     <th>Ostatnia modyfikacja</th>
                                                     <th>Status</th>
-                                                    <th>Akcja</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -142,17 +144,15 @@ function OrderManagement() {
                                                         <td>{dataActivity.activityName}</td>
                                                         <td>{formatDate(dataActivity.creationDate)}</td>
                                                         <td>{dataActivity.lastModified !== null ? dataActivity.lastModified : 'brak'}</td>
-                                                        <td>{dataActivity.activityStatus}</td>
-                                                        <td>
-                                                            {dataActivity.activityStatus === 'OK' ? (
-                                                                <button onClick={() => handleStatusChange(dataActivity.activityId, 1)}>
-                                                                    Zmień status na NOK
-                                                                </button>
-                                                            ) : (
-                                                                <button onClick={() => handleStatusChange(dataActivity.activityId, 2)}>
-                                                                    Zmień status na OK
-                                                                </button>
-                                                            )}
+                                                        <td className={styles.selectBox}>
+                                                            <select
+                                                                className={`${dataActivity.activityStatus === 'OK' ? styles.ok : styles.nok}`}
+                                                                value={dataActivity.activityStatus}
+                                                                onChange={(e) => handleStatusChange(dataActivity.activityId, e.target.value)}
+                                                            >
+                                                                <option value="OK" className={styles.ok}>OK</option>
+                                                                <option value="NOK" className={styles.nok}>NOK</option>
+                                                            </select>
                                                         </td>
                                                     </tr>
                                                 ))}
