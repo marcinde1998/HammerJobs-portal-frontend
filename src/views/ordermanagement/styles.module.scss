@@ -60,7 +60,6 @@
                 border: 2px solid;
                 border-color: #ddd;
                 border-radius: 5px;
-                cursor: pointer;
                 transition: background-color 0.3s;
                 padding: 5px;
                 margin-right: 2px;
@@ -78,45 +77,64 @@
     }
 
     .componentTable {
-        border: 2px solid $border-color-main;
-        box-shadow: $box-shadow-main;
-        border-radius: 5px;
         width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
 
-        .componentTableTbody {
-            .componentTr {
+        .ok {
+            background-color: rgba(6, 227, 54, 0.5);
+            cursor: pointer;
+        }
+
+        .ok:hover {
+            background-color: rgba(6, 227, 54, 0.8);
+        }
+
+        .nok {
+            background-color: rgba(227, 54, 6, 0.5);
+            cursor: pointer;
+        }
+
+        .nok:hover {
+            background-color: rgba(227, 54, 6, 0.8);
+        }
+
+        .nok.componentTrIsActive  {
+            background-color: rgba(227, 54, 6, 0.8);
+        }
+
+        .ok.componentTrIsActive {
+            background-color: rgba(6, 227, 54, 0.8);
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .activityTable {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .activityTable {
+            .ok {
+                background-color: rgba(6, 227, 54, 0.5);
                 cursor: pointer;
-
-                td {
-                    border: 1px solid #ddd;
-                }
             }
-
-            .componentTrIsActive {
-                // Twoje style dla wiersza, gdy selectedRow !== null
-                background-color: #0693e3; // Przykładowy kolor
-                // inne style, które chcesz dodać
+    
+            .ok:hover {
+                background-color: rgba(6, 227, 54, 0.8);
             }
-
-            .componentTr:hover {
-                background-color: #0693e3;
+    
+            .nok {
+                background-color: rgba(227, 54, 6, 0.5);
+                cursor: pointer;
             }
-
-            .activityTr {
-
-                td {
-                    border: 1px solid #ddd;
-                }
-
-                tbody {
-                    tr {
-                        cursor: pointer;
-                    }
-
-                    tr:hover {
-                        background-color: #0693e3;
-                    }
-                }
+    
+            .nok:hover {
+                background-color: rgba(227, 54, 6, 0.8);
             }
         }
     }

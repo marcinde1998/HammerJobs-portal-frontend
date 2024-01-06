@@ -32,6 +32,8 @@ function OrderManagement() {
         //Obsługa tabel
         selectedRow,
         handleRowClick,
+        //Obsługa zmiany aktywności
+        handleStatusChange
     } = UseOrderManagement();
     useEffect(() => {
         getOrderData();
@@ -69,7 +71,7 @@ function OrderManagement() {
                             action='http://172.22.126.11:8080/addComponentByOrdNumOrCompNum'
                             method="POST"
                         >
-                            <input type="text" placeholder="Nazwa komponentu" name="componentName" onChange={handleFormComponentAddChange} />
+                            <input type="text" placeholder="Nazwa komponentu" name="componentName" onChange={handleFormComponentAddChange} required />
                             <input
                                 type="submit"
                                 value="Dodaj"
@@ -85,7 +87,7 @@ function OrderManagement() {
                             action='http://172.22.126.11:8080/componentActivityAdd'
                             method="POST"
                         >
-                            <input type="text" placeholder="Nazwa aktywności" name="activityName" onChange={handleActivityAddChange} />
+                            <input type="text" placeholder="Nazwa aktywności" name="activityName" onChange={handleActivityAddChange} required />
                             <input
                                 type="submit"
                                 value="Dodaj"
@@ -96,7 +98,7 @@ function OrderManagement() {
                 )}
             </div>
             <table className={styles.componentTable}>
-                <thead className={styles.componentTableThead}>
+                <thead>
                     <tr>
                         <th>Numer wewnętrzny</th>
                         <th>Nazwa komponentu</th>
@@ -105,36 +107,53 @@ function OrderManagement() {
                         <th>Status</th>
                     </tr>
                 </thead>
-                <tbody className={styles.componentTableTbody}>
+                <tbody>
                     {orderComponents && orderComponents.map((dataComponent, index) => (
                         <React.Fragment key={index}>
                             <tr
                                 onClick={() => handleRowClick(index, dataComponent.id)}
-                                className={selectedRow === index ? styles.componentTrIsActive : styles.componentTr}
+                                className={`${dataComponent.status === 'OK' ? styles.ok : styles.nok} ${selectedRow === index ? styles.componentTrIsActive : ''}`}
                             >
                                 <td>{dataComponent.id}</td>
-                                <td>{dataComponent.componentId}</td>
+                                <td>{dataComponent.componentName}</td>
                                 <td>{formatDate(dataComponent.creationDate)}</td>
                                 <td>{dataComponent.lastModified !== null ? dataComponent.lastModified : 'brak'}</td>
                                 <td>{dataComponent.status}</td>
                             </tr>
                             {selectedRow === index && dataComponent.componentActivitiesList && dataComponent.componentActivitiesList.length > 0 && (
-                                <tr className={styles.activityTr}>
+                                <tr>
                                     <td colSpan="5">
-                                        <table>
+                                        <table className={styles.activityTable}>
                                             <thead>
                                                 <tr>
                                                     <th>Nazwa aktywności</th>
                                                     <th>Data dodania</th>
                                                     <th>Ostatnia modyfikacja</th>
+                                                    <th>Status</th>
+                                                    <th>Akcja</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {dataComponent.componentActivitiesList.map((dataActivity, activityIndex) => (
-                                                    <tr key={activityIndex}>
+                                                    <tr
+                                                        key={activityIndex}
+                                                        className={`${dataActivity.activityStatus === 'OK' ? styles.ok : styles.nok}`}
+                                                    >
                                                         <td>{dataActivity.activityName}</td>
                                                         <td>{formatDate(dataActivity.creationDate)}</td>
                                                         <td>{dataActivity.lastModified !== null ? dataActivity.lastModified : 'brak'}</td>
+                                                        <td>{dataActivity.activityStatus}</td>
+                                                        <td>
+                                                            {dataActivity.activityStatus === 'OK' ? (
+                                                                <button onClick={() => handleStatusChange(dataActivity.activityId, 1)}>
+                                                                    Zmień status na NOK
+                                                                </button>
+                                                            ) : (
+                                                                <button onClick={() => handleStatusChange(dataActivity.activityId, 2)}>
+                                                                    Zmień status na OK
+                                                                </button>
+                                                            )}
+                                                        </td>
                                                     </tr>
                                                 ))}
                                             </tbody>

@@ -1,6 +1,7 @@
 // @components
 import AppRoutes from './routes/AppRoutes';
 import NavBar from './componetns/navbar/NavBar';
+import Footer from './componetns/footer/Footer';
 
 
 // @styles
@@ -31,6 +32,7 @@ function App() {
         access={access}
         setAccess={setAccess}
       />
+      <Footer></Footer>
     </div>
   );
 }

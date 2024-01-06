@@ -2,19 +2,10 @@
 @import 'src/styles/mixins';
 
 .wrapper {
-   font: {
-      family: 'Roboto';
-      weight: 400;
-      size: 1, 2rem;
-   }
-
    .tableWrapper {
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
-      tr {
-         
-      }
 
       th,
       td {
@@ -23,18 +14,22 @@
          text-align: left;
          cursor: pointer;
       }
+
       .ok {
-         background-color: rgba(6, 227, 54, 0.5); 
-       }
-       .ok:hover {
+         background-color: rgba(6, 227, 54, 0.5);
+      }
+
+      .ok:hover {
          background-color: rgba(6, 227, 54, 0.8);
-       }
-       .nok {
+      }
+
+      .nok {
          background-color: rgba(227, 54, 6, 0.5);
-       }
-       .nok:hover {
-         background-color: rgba(227, 54, 6, 0.8); 
-       }
+      }
+
+      .nok:hover {
+         background-color: rgba(227, 54, 6, 0.8);
+      }
 
       th {
          background-color: #f2f2f2;

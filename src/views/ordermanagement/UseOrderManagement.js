@@ -124,6 +124,25 @@ export default function UseOrderManagement() {
         console.log(formDataActivityAdd); // Sprawdź wartość w konsoli
     };
 
+    // Obsługa zmiany statusu aktywności
+
+    const handleStatusChange = (dataActivityId, newStatus) => {
+        console.log(dataActivityId)
+        console.log(newStatus)
+        axios
+            .post('http://172.22.126.11:8080/componentActivityChange', {
+                componentsActivitiesId: parseInt(dataActivityId, 10),
+                newStatusId: parseInt(newStatus, 10)
+            })
+            .then((res) => {
+                console.log(res);
+                getOrderData();  // Odśwież dane po zmianie statusu
+            })
+            .catch((error) => {
+                console.log('error');
+            });
+    };
+
     //formatowanie daty na normalną
     function formatDate(dateString) {
         const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
@@ -152,5 +171,7 @@ export default function UseOrderManagement() {
         //Obsługa tabel
         selectedRow,
         handleRowClick,
+        //Obsługa zmiany aktywności
+        handleStatusChange
     };
 }

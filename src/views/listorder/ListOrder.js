@@ -89,7 +89,7 @@ function ListOrder(props) {
                     {currentItems && currentItems.map(order => (
                         <tr
                             key={order.id}
-                            className={`${styles.orderStatus} ${order.status === 'OK' ? styles.ok : styles.nok}`}
+                            className={`${order.status === 'OK' ? styles.ok : styles.nok}`}
                             onClick={() => {
                                 redirectToDetailView(order.id);
                                 sessionStorage.setItem('orderId', JSON.stringify(order.id));
