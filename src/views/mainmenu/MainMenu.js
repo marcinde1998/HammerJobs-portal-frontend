@@ -57,6 +57,15 @@ function MainMenu(props) {
 								<Link to="/componentlist">Lista Komponentów</Link>
 							</li>
 						)}
+					{
+						(props.access === 'administrator' ||
+							props.access === 'kierownik' ||
+							props.access === 'lider' ||
+							props.access === 'pracownik') && (
+							<li>
+								<Link to="/warehousemanagement">Magazyn</Link>
+							</li>
+						)}
 				</ul>
 			</div>
 		)

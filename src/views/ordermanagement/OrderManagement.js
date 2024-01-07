@@ -33,7 +33,6 @@ function OrderManagement() {
         handleRowClick,
         //Obsługa zmiany aktywności
         handleStatusChange,
-
     } = UseOrderManagement();
 
     useEffect(() => {

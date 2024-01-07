@@ -10,6 +10,7 @@ import ListOrder from "../views/listorder/ListOrder";
 import OrderManagement from "../views/ordermanagement/OrderManagement";
 import MainMenu from '../views/mainmenu/MainMenu';
 import AdminPanel from "../views/adminpanel/AdminPanel";
+import WarehouseManagement from "../views/warehousemanagement/WarehouseManagement"
 
 
 
@@ -98,6 +99,13 @@ const AppRoutes = (props) => {
             <Route
                 path='/adminpanel'
                 element={<AdminPanel
+                    loggedUser={props.loggedUser}
+                    access={props.access}
+                />} />
+            {/*Widok magazynu*/}
+            <Route
+                path='/warehouseManagement'
+                element={<WarehouseManagement
                     loggedUser={props.loggedUser}
                     access={props.access}
                 />} />
