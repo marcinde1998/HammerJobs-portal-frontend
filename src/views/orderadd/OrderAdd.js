@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 //@Hooks
-import { useEffect } from 'react';
 import UseOrderAdd from '../orderadd/UseOrderAdd';
 
 //@Styles
@@ -17,20 +16,12 @@ function OrderAdd(props) {
         setFormSubmitted,
         setFormData
     } = UseOrderAdd();
-    const rights = 'administrator';
-    useEffect(() => {
-        if (props.access === null || props.access !== rights) {
-            const timeoutId = setTimeout(() => {
-                window.location.reload();
-            }, 3000);
-            return () => clearTimeout(timeoutId);
-        }
-    }, [props.access]);
-    if (rights !== props.access) {
+
+    if (props.access === null) {
         return (
-            <div>Brak dostępu...</div>
+            <div>Loading...</div>
         )
-    } else if (rights === props.access) {
+    } else if (props.access === 'administrator' || props.access === 'kierownik') {
         return (
             <div className={styles.wrapper}>
                 {formSubmitted ? (
@@ -100,6 +91,8 @@ function OrderAdd(props) {
                 )}
             </div>
         )
+    } else if (props.access === 'lider' || props.access === 'pracownik') {
+        return (<Navigate to="/mainmenu" />)
     }
 }
 export default OrderAdd;

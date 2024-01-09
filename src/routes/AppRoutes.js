@@ -12,8 +12,6 @@ import MainMenu from '../views/mainmenu/MainMenu';
 import AdminPanel from "../views/adminpanel/AdminPanel";
 import WarehouseManagement from "../views/warehousemanagement/WarehouseManagement"
 
-
-
 const AppRoutes = (props) => {
 
     const navigate = useNavigate();
@@ -28,7 +26,6 @@ const AppRoutes = (props) => {
                     props.setLoggedUser(JSON.parse(sessionStorage.getItem('loggedUser')));
                 })
                 .catch((error) => {
-                    // alert('Wystąpił błąd spróbuj ponownie później');
                     sessionStorage.removeItem('loggedUser');
                     props.setLoggedUser(null);
                     props.setAccess(null);
@@ -39,12 +36,9 @@ const AppRoutes = (props) => {
         }
     }
     useEffect(() => {
-        // Ponownie wywołaj setAccess przy zmianie props.loggedUser
         setAccess();
-
-        // Ponownie wywołaj setAccess przy zmianie trasy
         return () => setAccess();
-    }, [props.loggedUser, navigate]);
+    }, [props.loggedUser, navigate, props.access]);
     return (
         <Routes>
             {/* //@views */}

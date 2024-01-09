@@ -92,14 +92,14 @@ export default function UseWarehouseManagement() {
 
     const [selectedInsideNumber, setSelectedInsideNumber] = useState(null);
 
-    const handleTdClick = (insideNumber) => {
-        if (selectedInsideNumber === insideNumber) {
+    const handleTdClick = (id) => {
+        if (selectedInsideNumber === id) {
             setSelectedInsideNumber(null); // Jeśli kliknięto ponownie, ustaw na null
         } else {
-            setSelectedInsideNumber(insideNumber); // Ustaw nową wartość
+            setSelectedInsideNumber(id); // Ustaw nową wartość
         }
 
-        const orderDetailsId = insideNumber; // Ustawiamy wybrany wiersz z tabeli
+        const orderDetailsId = id; // Ustawiamy wybrany wiersz z tabeli
         const positionId = selectedPosition; // Ustawiamy wewnętrzny numer
         setChangePositionData({
             orderDetailsId,
@@ -145,6 +145,22 @@ export default function UseWarehouseManagement() {
             });
     };
 
+    //Filtrowanie tabeli
+
+    const [filters, setFilters] = useState({
+        insideNumber: '',
+        componentName: '',
+        locationName: '',
+        positionName: ''
+    });
+
+    const filteredComponents = componentList.filter(component =>
+        component.insideNumber.toLowerCase().includes(filters.insideNumber.toLowerCase()) &&
+        component.componentName.toLowerCase().includes(filters.componentName.toLowerCase()) &&
+        component.locationName.toLowerCase().includes(filters.locationName.toLowerCase()) &&
+        (component.positionName !== null ? component.positionName.toLowerCase().includes(filters.positionName.toLowerCase()) : true)
+    );
+
     return {
         // Pobieranie pozycji magazynowych i listy komponentów
         getPositionList,
@@ -167,7 +183,11 @@ export default function UseWarehouseManagement() {
         handlePositionChange,
         filterValue,
         handleFilterChange,
-        handleChangePositionSubmit
+        handleChangePositionSubmit,
+        //Fotrowanie tabeli
+        filteredComponents,
+        filters,
+        setFilters
     };
 }
 
