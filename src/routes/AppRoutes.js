@@ -22,19 +22,23 @@ const AppRoutes = (props) => {
                     token: props.loggedUser
                 })
                 .then((res) => {
-                    const newToken = res.data.newToken;
-                    sessionStorage.setItem('loggedUser', JSON.stringify(newToken));
+                    if (res.data.newToken) {
+                        const newToken = res.data.newToken;
+                        sessionStorage.setItem('loggedUser', JSON.stringify(newToken));
+                        props.setLoggedUser(newToken);
+                    }else{
+                        props.setLoggedUser(JSON.parse(sessionStorage.getItem('loggedUser')));
+                    }
                     props.setAccess(res.data.userRole);
-                    props.setLoggedUser(newToken);
                 })
                 .catch((error) => {
                     sessionStorage.removeItem('loggedUser');
                     props.setLoggedUser(null);
                     props.setAccess(null);
-                    navigate('/');
+                    navigate('/')
                 });
-        } else {
-            return navigate('/');
+        } else if (!props.loggedUser) {
+            return (navigate('/'))
         }
     }
     useEffect(() => {
