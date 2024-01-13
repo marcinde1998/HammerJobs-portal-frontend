@@ -79,10 +79,10 @@ function AdminPanel(props) {
                     <table>
                         <thead>
                             <tr>
-                                <th>Numer użytkownika</th>
+                                <th className={styles.id}>Numer użytkownika</th>
                                 <th>Login</th>
                                 <th>Uprawnienia</th>
-                                <th>Data dodania</th>
+                                <th className={styles.date}>Data dodania</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -90,10 +90,10 @@ function AdminPanel(props) {
                                 <tr
                                     key={users.id}
                                 >
-                                    <td>{users.id}</td>
+                                    <td className={styles.id}>{users.id}</td>
                                     <td>{users.username}</td>
                                     <td>{users.rights}</td>
-                                    <td>{formatDate(users.creationDate)}</td>
+                                    <td className={styles.date}>{formatDate(users.creationDate)}</td>
                                 </tr>
                             ))}
                         </tbody>
