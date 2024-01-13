@@ -46,41 +46,43 @@ function HomeLogin(props) {
 	if (!props.loggedUser) {
 		return (
 			<div className={styles.wrapper}>
-				<div className={styles.ksaLogoBox}>
-					<span className={styles.ksaText}>KSA</span>
-					<span className={styles.solutionsText}>Solutions</span>
+				<div className={styles.formLoginWrapper}>
+					<div className={styles.ksaLogoBox}>
+						<span className={styles.ksaText}>KSA</span>
+						<span className={styles.solutionsText}>Solutions</span>
+					</div>
+					<form
+						className={styles.loginFormBox}
+						onSubmit={handleSubmit}
+						action="http://172.22.126.11:8080/userLogin"
+						method="POST"
+					>
+						<label htmlFor="username">Nazwa użytkownika:</label>
+						<input
+							type="text"
+							id="username"
+							name="username"
+							value={formData.username}
+							onChange={handleInputChange}
+							required
+						/>
+						<label htmlFor="password">Hasło:</label>
+						<input
+							type="password"
+							id="password"
+							name="password"
+							value={formData.password}
+							onChange={handleInputChange}
+							required
+						/>
+						<input
+							className={styles.btn}
+							type="submit"
+							value="Zaloguj"
+						/>
+						{error && <div className={styles.error}>{error}</div>}
+					</form>
 				</div>
-				<form
-					className={styles.loginFormBox}
-					onSubmit={handleSubmit}
-					action="http://172.22.126.11:8080/userLogin"
-					method="POST"
-				>
-					<label htmlFor="username">Nazwa użytkownika:</label>
-					<input
-						type="text"
-						id="username"
-						name="username"
-						value={formData.username}
-						onChange={handleInputChange}
-						required
-					/>
-					<label htmlFor="password">Hasło:</label>
-					<input
-						type="password"
-						id="password"
-						name="password"
-						value={formData.password}
-						onChange={handleInputChange}
-						required
-					/>
-					<input
-						className={styles.btn}
-						type="submit"
-						value="Zaloguj"
-					/>
-					{error && <div className={styles.error}>{error}</div>}
-				</form>
 			</div>
 		);
 	} else if (props.loggedUser) {

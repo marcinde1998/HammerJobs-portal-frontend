@@ -2,115 +2,307 @@
 @import 'src/styles/mixins';
 
 .wrapper {
-    // background-color: #0693e3;
-    background-color: #fff;
-    border: 2px solid #0693e3;
-    border-radius: 5px;
-    width: 600px;
-    height: 400px;
-    @include flex;
-    @include flex-space-btw;
-    margin: auto;
-    margin-top: 100px;
-    box-shadow: $box-shadow-main;
-
-    font: {
-        family: 'Roboto';
-        weight: 400;
-        size: 1.2rem;
-    }
-
-
-    .ksaLogoBox {
-        flex: 1;
-        max-width: 40%;
-        height: 80%; // Set the height of ksaLogoBox to 100%
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .formLoginWrapper {
+        background-color: #fff;
+        border: 2px solid #0693e3;
+        border-radius: 5px;
+        @include flex;
+        @include flex-space-btw;
         margin: auto;
-        border-right: 5px solid #0693e3;
-        border-radius: 90%;
+        box-shadow: $box-shadow-main;
 
-        .ksaText {
-            color: #014972;
-            margin-top: auto;
+        font: {
+            family: 'Roboto';
+            weight: 400;
+        }
 
-            font: {
-                weight: 700;
-                size: 4rem;
+        .ksaLogoBox {
+            flex: 1;
+            max-width: 40%;
+            height: 80%; // Set the height of ksaLogoBox to 100%
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: auto;
+            border-right: 5px solid $border-color-main;
+            border-radius: 90%;
+
+            .ksaText {
+                color: $color-text-logo1;
+                margin-top: auto;
+
+                font: {
+                    weight: 700;
+                }
+            }
+
+            .solutionsText {
+                color: $color-text-logo2;
+                margin-bottom: auto;
             }
         }
 
-        .solutionsText {
-            color: #65c4fc;
-            margin-bottom: auto;
 
-            font: {
-                size: 1.85rem;
-            }
-        }
-    }
-
-
-    .loginFormBox {
-        flex: 1;
-        @include flex-column;
-        @include flex-center;
-        text-align: left;
-
-        label {
-            max-width: 60%;
-            display: block;
-            margin-bottom: 8px;
+        .loginFormBox {
+            flex: 1;
+            @include flex-column;
+            @include flex-center;
             text-align: left;
-        }
 
-        input {
-            width: 60%;
-            padding: 6px;
-            box-sizing: border-box;
-            margin-bottom: 16px;
-        }
-
-        .btn {
-            width: 30%;
-            color: #fff;
-            padding: 10px;
-            cursor: pointer;
-            background-color: #0693e3;
-            border-color: #0692e38f;
-            transition: background-color 0.3s;
-
-            font: {
-                weight: 700;
-                size: 1rem;
+            label {
+                display: block;
+                text-align: left;
             }
-        }
 
-        .btn:hover {
-            background-color: #fff;
-            color: #0693e3;
-        }
+            input {
+                box-sizing: border-box;
+            }
 
-        .error {
-            color: red;
+            .btn {
+                width: 30%;
+                color: #fff;
+                cursor: pointer;
+                background-color: $border-color-main;
+                border-color: $border-color-main;
+                transition: background-color 0.3s;
+
+                font: {
+                    weight: 700;
+                }
+            }
+
+            .btn:hover {
+                background-color: #fff;
+                color: $color-btn-main;
+            }
+
+            .error {
+                color: red;
+            }
         }
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 480px) {
     .wrapper {
-        width: 400px;
-        height: 300px;
-        font: {
-            size: 0.8rem
+        .formLoginWrapper {
+
+            height: 250px;
+            margin-top: 9%;
+
+            font: {
+                size: 0.8rem;
+            }
+
+            .ksaLogoBox {
+                .ksaText {
+
+                    font: {
+                        size: 2rem;
+                    }
+                }
+
+                .solutionsText {
+                    font: {
+                        size: 0.8rem;
+                    }
+                }
+            }
+
+            .loginFormBox {
+                label {
+                    max-width: 60%;
+                    margin-bottom: 6px;
+                }
+
+                input {
+                    width: 60%;
+                    padding: 6px;
+                    margin-bottom: 16px;
+                }
+            }
         }
-        .loginFormBox {
-            .btn {
-                font: {
-                    weight: 700;
-                    size: 0.8rem;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 766px) {
+    .wrapper {
+        .formLoginWrapper {
+            width: 400px;
+            height: 300px;
+            margin-top: 9%;
+
+            font: {
+                size: 0.8rem;
+            }
+
+            .ksaLogoBox {
+                .ksaText {
+
+                    font: {
+                        size: 3rem;
+                    }
+                }
+
+                .solutionsText {
+                    font: {
+                        size: 1.20rem;
+                    }
+                }
+            }
+
+            .loginFormBox {
+                label {
+                    max-width: 60%;
+                    margin-bottom: 6px;
+                }
+
+                input {
+                    width: 60%;
+                    padding: 6px;
+                    margin-bottom: 16px;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 767px) and (max-width: 1023px) {
+    .wrapper {
+        .formLoginWrapper {
+            width: 500px;
+            height: 350px;
+            margin-top: 9%;
+
+            font: {
+                size: 1.2rem;
+            }
+
+            .ksaLogoBox {
+                .ksaText {
+
+                    font: {
+                        size: 3.5rem;
+                    }
+                }
+
+                .solutionsText {
+                    font: {
+                        size: 1.60rem;
+                    }
+                }
+            }
+
+            .loginFormBox {
+                label {
+                    max-width: 60%;
+                    margin-bottom: 6px;
+                }
+
+                input {
+                    width: 60%;
+                    padding: 6px;
+                    margin-bottom: 16px;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .wrapper {
+        .formLoginWrapper {
+            width: 600px;
+            height: 400px;
+            margin-top: 7%;
+
+            font: {
+                size: 1.4rem;
+            }
+
+            .ksaLogoBox {
+                .ksaText {
+
+                    font: {
+                        size: 4rem;
+                    }
+                }
+
+                .solutionsText {
+                    font: {
+                        size: 1.85rem;
+                    }
+                }
+            }
+
+            .loginFormBox {
+                label {
+                    max-width: 60%;
+                    margin-bottom: 6px;
+                }
+
+                input {
+                    width: 60%;
+                    padding: 6px;
+                    margin-bottom: 16px;
+                }
+
+                .btn {
+                    padding: 10px;
+
+                    font: {
+                        size: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    .wrapper {
+        .formLoginWrapper {
+            width: 800px;
+            height: 600px;
+            margin-top: 5%;
+
+            font: {
+                size: 1.6rem;
+            }
+
+            .ksaLogoBox {
+                .ksaText {
+
+                    font: {
+                        size: 6rem;
+                    }
+                }
+
+                .solutionsText {
+                    font: {
+                        size: 2.5rem;
+                    }
+                }
+            }
+
+            .loginFormBox {
+                label {
+                    max-width: 60%;
+                    margin-bottom: 8px;
+                }
+
+                input {
+                    width: 60%;
+                    padding: 6px;
+                    margin-bottom: 16px;
+                }
+
+                .btn {
+                    padding: 10px;
+
+                    font: {
+                        size: 1rem;
+                    }
                 }
             }
         }
