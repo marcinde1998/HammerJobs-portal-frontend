@@ -44,7 +44,7 @@ function OrderAdd(props) {
                         </Link>
                         <Link
                             className={styles.aBtn}
-                            to={`http://localhost:3000/ordermanagement/${serwerResData}`}
+                            to={`/ordermanagement/${serwerResData}`}
                             onClick={() => {
                                 sessionStorage.setItem('orderId', serwerResData);
                             }}

@@ -17,6 +17,7 @@ const AppRoutes = (props) => {
     const navigate = useNavigate();
     const setAccess = () => {
         if (props.loggedUser) {
+            console.log("minęło 15 sekund")
             axios
                 .post('http://172.22.126.11:8080/decodeToken', {
                     token: props.loggedUser
@@ -26,8 +27,9 @@ const AppRoutes = (props) => {
                         const newToken = res.data.newToken;
                         sessionStorage.setItem('loggedUser', JSON.stringify(newToken));
                         props.setLoggedUser(newToken);
-                    }else{
+                    } else {
                         props.setLoggedUser(JSON.parse(sessionStorage.getItem('loggedUser')));
+                       
                     }
                     props.setAccess(res.data.userRole);
                 })
@@ -41,10 +43,16 @@ const AppRoutes = (props) => {
             return (navigate('/'))
         }
     }
+    
     useEffect(() => {
         setAccess();
-        return () => setAccess();
-    }, [props.loggedUser, navigate, props.access]);
+        const intervalId = setInterval(() => {
+            setAccess();
+        }, 15000); 
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [props.loggedUser, navigate, props.access, props.setLoggedUser, props.setAccess]);
     return (
         <Routes>
             {/* //@views */}
