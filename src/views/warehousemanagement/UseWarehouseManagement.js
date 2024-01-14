@@ -155,12 +155,11 @@ export default function UseWarehouseManagement() {
     });
 
     const filteredComponents = componentList.filter(component =>
-        component.insideNumber.toLowerCase().includes(filters.insideNumber.toLowerCase()) &&
-        component.componentName.toLowerCase().includes(filters.componentName.toLowerCase()) &&
-        component.locationName.toLowerCase().includes(filters.locationName.toLowerCase()) &&
+        (component.insideNumber !== null ? component.insideNumber.toLowerCase().includes(filters.insideNumber.toLowerCase()) : true) &&
+        (component.componentName !== null ? component.componentName.toLowerCase().includes(filters.componentName.toLowerCase()) : true) &&
+        (component.locationName !== null ? component.locationName.toLowerCase().includes(filters.locationName.toLowerCase()) : true) &&
         (component.positionName !== null ? component.positionName.toLowerCase().includes(filters.positionName.toLowerCase()) : true)
     );
-
     return {
         // Pobieranie pozycji magazynowych i listy komponentów
         getPositionList,
