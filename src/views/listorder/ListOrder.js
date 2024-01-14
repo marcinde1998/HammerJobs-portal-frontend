@@ -47,41 +47,46 @@ function ListOrder(props) {
         return (
             <div className={styles.wrapper}>
                 <table className={styles.tableWrapper}>
-                    <thead>
-                        <tr>
-                            <th>Numer wewnętrzny<br />
+                    <thead className={styles.orderListTheadWrapper}>
+                        <tr className={styles.orderListTrWrapper}>
+                            <th className={styles.insideNumber}>Numer wewnętrzny<br />
                                 <input
                                     type="text"
                                     value={filterId}
                                     onChange={handleFilterIdChange}
+                                    placeholder="Filtruj..."
                                 />
                             </th>
-                            <th>Numer zamówienia<br />
+                            <th className={styles.orderNumber}>Numer zamówienia<br />
                                 <input
                                     type="text"
                                     value={filterNumber}
                                     onChange={handleFilterNumberChange}
+                                    placeholder="Filtruj..."
                                 />
                             </th>
-                            <th>Status<br />
+                            <th className={styles.status}>Status<br />
                                 <input
                                     type="text"
                                     value={filterStatus}
                                     onChange={handleFilterStatusChange}
+                                    placeholder="Filtruj..."
                                 />
                             </th>
-                            <th>Nazwa klienta<br />
+                            <th className={styles.clientName}>Nazwa klienta<br />
                                 <input
                                     type="text"
                                     value={filterClientName}
                                     onChange={handleFilterClientNameChange}
+                                    placeholder="Filtruj..."
                                 />
                             </th>
-                            <th>Data utworzenia<br />
+                            <th className={styles.date}>Data utworzenia<br />
                                 <input
                                     type="text"
                                     value={filterCreationDate}
                                     onChange={handleFilterCreationDateChange}
+                                    placeholder="Filtruj..."
                                 />
                             </th>
                         </tr>
@@ -96,13 +101,11 @@ function ListOrder(props) {
                                     sessionStorage.setItem('orderId', JSON.stringify(order.id));
                                 }}
                             >
-                                <td>{order.id}</td>
+                                <td className={styles.insideNumber}>{order.id}</td>
                                 <td>{order.number}</td>
-                                <td>
-                                    {order.status}
-                                </td>
-                                <td>{order.clientName}</td>
-                                <td>{formatDate(order.creationDate)}</td>
+                                <td>{order.status}</td>
+                                <td className={styles.clientName}>{order.clientName}</td>
+                                <td className={styles.date}>{formatDate(order.creationDate)}</td>
                             </tr>
                         ))}
                     </tbody>

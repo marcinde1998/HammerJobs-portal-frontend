@@ -10,11 +10,11 @@
         color: inherit;
 
         .ksaText {
-            color: #014972;
+            color: $color-text-logo1;
         }
 
         .solutionsText {
-            color: #65c4fc;
+            color: $color-text-logo2;
 
             font: {
                 size: 12px;
@@ -46,6 +46,40 @@
         .btn:hover {
             background-color: #fff;
             color: #0693e3;
+        }
+    }
+}
+
+@media (max-width: 319px) {
+    .wrapper {
+        .btnSegment {
+            .aBtn,
+            .btn {
+                font-size: 7px;
+                padding: 3px;
+            }
+        }
+    }
+}
+@media (min-width: 320px) and (max-width: 479px){
+    .wrapper {
+        .btnSegment {
+            .aBtn,
+            .btn {
+                font-size: 9px;
+                padding: 4px;
+            }
+        }
+    }
+}
+@media (min-width: 480px) and (max-width: 766px){
+    .wrapper {
+        .btnSegment {
+            .aBtn,
+            .btn {
+                font-size: 9px;
+                padding: 5px;
+            }
         }
     }
 }
