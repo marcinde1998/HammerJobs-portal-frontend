@@ -161,7 +161,7 @@ function WarehouseManagement(props) {
                             >
                                 <td>{listComponent.insideNumber}</td>
                                 <td>{listComponent.componentName}</td>
-                                <td>{listComponent.locationName !== null ? listComponent.positionName : 'BRAK'}</td>
+                                <td>{listComponent.locationName !== null ? listComponent.locationName : 'BRAK'}</td>
                                 <td>{listComponent.positionName !== null ? listComponent.positionName : 'BRAK'}</td>
                             </tr>
                         ))}
