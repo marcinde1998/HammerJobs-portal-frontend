@@ -49,7 +49,7 @@ function OrderAdd(props) {
                                 sessionStorage.setItem('orderId', serwerResData);
                             }}
                         >
-                            Przejdź do zamówienia {serwerResData}
+                            Przejdź do zamówienia
                         </Link>
                     </div>
                 ) : (

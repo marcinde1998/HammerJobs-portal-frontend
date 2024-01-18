@@ -52,7 +52,7 @@ function OrderManagement(props) {
                             <span>Nazwa klienta: {dataOrder.clientName}</span>
                             <span>Data dodania: {formatDate(dataOrder.creationDate)}</span>
                             <span>Numer wewnętrzny: {dataOrder.id}</span>
-                            <span>Ostatnia modyfikacja: {formatDate(dataOrder.lastModified !== null ? dataOrder.lastModified : 'brak')}</span>
+                            <span>Ostatnia modyfikacja: {(dataOrder.lastModified !== null ? formatDate(dataOrder.lastModified) : 'brak')}</span>
                             <span>Numer klienta: {dataOrder.number}</span>
                             <span>status: {dataOrder.status}</span>
                         </div>
@@ -67,7 +67,7 @@ function OrderManagement(props) {
                         </button>
                     </div>
                     {showFormAddComponent && (
-                        <div className={styles.formBox}>
+                        <div className={styles.formBoxComponent}>
                             <form
                                 onSubmit={handleComponentAddSubmit}
                                 action='http://172.22.126.11:8080/addComponentByOrdNumOrCompNum'
@@ -77,13 +77,14 @@ function OrderManagement(props) {
                                 <input
                                     type="submit"
                                     value="Dodaj"
+                                    className={styles.btn}
                                 />
                             </form>
                             <button onClick={closeFormAddComponent} className={styles.btn}>Zamknij</button>
                         </div>
                     )}
                     {showFormAddActivity && (
-                        <div className={styles.formBox}>
+                        <div className={styles.formBoxActivity}>
                             <form
                                 onSubmit={handleActivityAddSubmit}
                                 action='http://172.22.126.11:8080/componentActivityAdd'
@@ -93,6 +94,7 @@ function OrderManagement(props) {
                                 <input
                                     type="submit"
                                     value="Dodaj"
+                                    className={styles.btn}
                                 />
                             </form>
                             <button onClick={closeFormAddActivity} className={styles.btn}>Zamknij</button>

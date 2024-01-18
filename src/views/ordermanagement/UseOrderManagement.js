@@ -29,14 +29,26 @@ export default function UseOrderManagement() {
             })
     }
     // Obsługa formularza dodawania komponentu do zamówienia
+    const [showFormAddActivity, setShowFormAddActivity] = useState(false);
     const [showFormAddComponent, setShowFormAddComponent] = useState(false);
 
-    const openFormAddComponent = () => {
-        if (showFormAddComponent === false) setShowFormAddComponent(!showFormAddComponent);
+    const openFormAddActivity = () => {
+        setShowFormAddActivity(true);
+        setShowFormAddComponent(false); // Zamknij drugi formularz, jeśli jest otwarty
     };
+
+    const closeFormAddActivity = () => {
+        setShowFormAddActivity(false);
+    };
+
+    const openFormAddComponent = () => {
+        setShowFormAddComponent(true);
+        setShowFormAddActivity(false); // Zamknij pierwszy formularz, jeśli jest otwarty
+    };
+
     const closeFormAddComponent = () => {
-        if (showFormAddComponent === true) setShowFormAddComponent(!showFormAddComponent);
-    }
+        setShowFormAddComponent(false);
+    };
 
     const [formDataComponentAdd, setFormDataComponentAdd] = useState({
         orderId: parseInt(orderId, 10),
@@ -64,16 +76,6 @@ export default function UseOrderManagement() {
             .catch((error) => {
                 console.log('error');
             });
-    }
-
-    // Obsługa formularza dodawania aktywności do komponentu
-    const [showFormAddActivity, setShowFormAddActivity] = useState(false);
-
-    const openFormAddActivity = () => {
-        if (showFormAddActivity === false) setShowFormAddActivity(!showFormAddActivity);
-    };
-    const closeFormAddActivity = () => {
-        if (showFormAddActivity === true) setShowFormAddActivity(!showFormAddActivity);
     }
 
     const [formDataActivityAdd, setFormDataActivityAdd] = useState({

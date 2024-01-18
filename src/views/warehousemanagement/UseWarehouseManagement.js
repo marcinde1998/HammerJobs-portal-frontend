@@ -27,15 +27,27 @@ export default function UseWarehouseManagement() {
             })
     };
 
-    // Obsługa dodawania pozycji magazynowej
+    // Obsługa dodawania pozycji magazynowej i zmiany
+    const [showFormChangePosition, setShowFormChangePosition] = useState(false);
     const [showFormAddPosition, setShowFormAddPosition] = useState(false);
 
-    const openFormAddPosition = () => {
-        if (showFormAddPosition === false) setShowFormAddPosition(!showFormAddPosition);
+    const openFormChangePosition = () => {
+        setShowFormChangePosition(true);
+        setShowFormAddPosition(false); // Zamknij drugi formularz, jeśli jest otwarty
     };
+
+    const closeFormChangePosition = () => {
+        setShowFormChangePosition(false);
+    };
+
+    const openFormAddPosition = () => {
+        setShowFormAddPosition(true);
+        setShowFormChangePosition(false); // Zamknij pierwszy formularz, jeśli jest otwarty
+    };
+
     const closeFormAddPosition = () => {
-        if (showFormAddPosition === true) setShowFormAddPosition(!showFormAddPosition);
-    }
+        setShowFormAddPosition(false);
+    };
 
     const [formDataPositionAdd, setFormDataPositionAdd] = useState({
         name: '',
@@ -77,17 +89,6 @@ export default function UseWarehouseManagement() {
             .catch((error) => {
                 console.log('error');
             });
-    }
-
-    // Obsługa zmiany pozycji magazynowej dla komponentów
-
-    const [showFormChangePosition, setShowFormChangePosition] = useState(false);
-
-    const openFormChangePosition = () => {
-        if (showFormChangePosition === false) setShowFormChangePosition(!showFormChangePosition);
-    };
-    const closeFormChangePosition = () => {
-        if (showFormChangePosition === true) setShowFormChangePosition(!showFormChangePosition);
     }
 
     const [selectedInsideNumber, setSelectedInsideNumber] = useState(null);

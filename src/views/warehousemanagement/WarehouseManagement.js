@@ -67,6 +67,7 @@ function WarehouseManagement(props) {
                         >
                             <input type="text" placeholder="Nazwa komponentu" name="name" onChange={handleFormAddPositionChange} required />
                             <select
+                                required
                                 onChange={(e) => handleSelectAddPositionChange(e.target.value)}
                             >
                                 <option value=""></option>
@@ -79,7 +80,7 @@ function WarehouseManagement(props) {
                                 value="Dodaj"
                             />
                         </form>
-                        <button onClick={closeFormAddPosition}>Zamknij</button>
+                        <button onClick={closeFormAddPosition} className={styles.btn}>Zamknij</button>
                     </div>
                 )}
                 {showFormChangePosition && (
@@ -111,7 +112,7 @@ function WarehouseManagement(props) {
                             <input type="submit" value="Zmień pozycję" />
                         </form>
 
-                        <button onClick={closeFormChangePosition}>Zamknij</button>
+                        <button onClick={closeFormChangePosition} className={styles.btn}>Zamknij</button>
                     </div>
                 )}
                 <table className={styles.componentTable}>
@@ -160,8 +161,8 @@ function WarehouseManagement(props) {
                             >
                                 <td>{listComponent.insideNumber}</td>
                                 <td>{listComponent.componentName}</td>
-                                <td>{listComponent.locationName}</td>
-                                <td>{listComponent.positionName !== null ? listComponent.positionName : 'brak'}</td>
+                                <td>{listComponent.locationName !== null ? listComponent.positionName : 'BRAK'}</td>
+                                <td>{listComponent.positionName !== null ? listComponent.positionName : 'BRAK'}</td>
                             </tr>
                         ))}
                     </tbody>

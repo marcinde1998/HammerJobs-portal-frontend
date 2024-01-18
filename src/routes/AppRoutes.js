@@ -17,7 +17,7 @@ const AppRoutes = (props) => {
     const navigate = useNavigate();
     const setAccess = () => {
         if (props.loggedUser) {
-            console.log("minęło 15 sekund")
+            console.log("minęła 1 minuta")
             axios
                 .post('http://172.22.126.11:8080/decodeToken', {
                     token: props.loggedUser
@@ -48,7 +48,7 @@ const AppRoutes = (props) => {
         setAccess();
         const intervalId = setInterval(() => {
             setAccess();
-        }, 15000); 
+        }, 60000); 
         return () => {
             clearInterval(intervalId);
         };

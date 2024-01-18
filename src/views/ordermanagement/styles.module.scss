@@ -71,8 +71,42 @@
             }
         }
 
-        .formBox {
+        .formBoxComponent,
+        .formBoxActivity {
             position: absolute;
+            margin-top: 200px;
+            border: solid 2px $border-color-main;
+            border-radius: 5px;
+            box-shadow: $box-shadow-main;
+            padding: 20px;
+            background-color: #fff;
+
+            .btn {
+                background-color: #0693e3;
+                color: #fff;
+                border: 2px solid;
+                border-color: #0693e3;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                padding: 5px;
+                margin-right: 2px;
+
+                font: {
+                    family: 'Roboto';
+                    size: 16px;
+                }
+            }
+            .btn:hover {
+                background-color: #fff;
+                color: #0693e3;
+            }
+
+            form {
+                @include flex-column;
+                gap: 5px;
+                margin-bottom: 5px; 
+            }
         }
     }
 
@@ -130,6 +164,7 @@
             padding: 8px;
             text-align: left;
         }
+
         .selectBox {
             padding: 0;
             margin: 0;
