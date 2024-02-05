@@ -1,0 +1,51 @@
+@import 'src/styles/variables';
+@import 'src/styles/mixins';
+
+.wrapper {
+    text-align: center;
+
+    h2 {
+
+        font: {
+            family: 'Roboto';
+            weight: 700;
+            size: 2rem;
+        }
+    }
+
+    .linkList {
+        @include flex-column;
+        @include flex-center;
+        list-style: none;
+        padding: 0;
+
+        li {
+            margin: 2px 0;
+
+            a {
+                width: 180px;
+                height: 50px;
+                @include inline-flex-center;
+                text-decoration: none;
+                background-color: #0693e3;
+                color: #fff;
+                border: 2px solid;
+                border-color: #0693e3;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+
+                font: {
+                    family: 'Roboto';
+                    weight: 400;
+                    size: 1.1rem;
+                }
+            }
+
+            a:hover {
+                background-color: #fff;
+                color: #0693e3;
+            }
+        }
+    }
+}

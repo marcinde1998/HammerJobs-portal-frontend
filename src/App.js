@@ -1,27 +1,30 @@
-import { useState } from 'react';
-import './App.css';
-import { useNavigate } from 'react-router-dom';
-
 // @components
 import AppRoutes from './routes/AppRoutes';
-import NavBar from './components/navbar/NavBar';
+import NavBar from './componetns/navbar/NavBar';
+import Footer from './componetns/footer/Footer';
+
+
+// @styles
+import styles from './styles.module.scss';
+
+// @Hooks
+import UseApp from './UseApp';
 
 function App() {
-  const [loggedUser, setLoggedUser] = useState(JSON.parse(sessionStorage.getItem('loggedUser')));
-  const [access, setAccess] = useState(null);
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    sessionStorage.removeItem('loggedUser');
-    setLoggedUser(null);
-    navigate('/');
-  }
-  console.log(loggedUser)
+  const {
+    //Sprawdzanie zalogowanego użytkownika
+    loggedUser,
+    setLoggedUser,
+    //Sprawdzanie dostepu
+    access,
+    setAccess
+  } = UseApp();
   return (
     <div className="App">
-      <NavBar 
-      loggedUser={loggedUser}
-      setLoggedUser={setLoggedUser}
-      access={access}
+      <NavBar
+        loggedUser={loggedUser}
+        setLoggedUser={setLoggedUser}
+        setAccess={setAccess}
       />
       <AppRoutes
         loggedUser={loggedUser}
@@ -29,6 +32,7 @@ function App() {
         access={access}
         setAccess={setAccess}
       />
+      <Footer></Footer>
     </div>
   );
 }

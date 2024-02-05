@@ -1,0 +1,85 @@
+@import 'src/styles/variables';
+@import 'src/styles/mixins';
+
+.wrapper {
+    @include flex-space-btw;
+    margin-bottom: 5px;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+
+        .ksaText {
+            color: $color-text-logo1;
+        }
+
+        .solutionsText {
+            color: $color-text-logo2;
+
+            font: {
+                size: 12px;
+            }
+        }
+    }
+
+    .btnSegment {
+
+        .aBtn,
+        .btn {
+            background-color: #0693e3;
+            color: #fff;
+            border: 2px solid;
+            border-color: #0693e3;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            padding: 5px;
+            margin-right: 2px;
+
+            font: {
+                family: 'Roboto';
+                size: 16px;
+            }
+        }
+
+        .aBtn:hover,
+        .btn:hover {
+            background-color: #fff;
+            color: #0693e3;
+        }
+    }
+}
+
+@media (max-width: 319px) {
+    .wrapper {
+        .btnSegment {
+            .aBtn,
+            .btn {
+                font-size: 7px;
+                padding: 3px;
+            }
+        }
+    }
+}
+@media (min-width: 320px) and (max-width: 479px){
+    .wrapper {
+        .btnSegment {
+            .aBtn,
+            .btn {
+                font-size: 9px;
+                padding: 4px;
+            }
+        }
+    }
+}
+@media (min-width: 480px) and (max-width: 766px){
+    .wrapper {
+        .btnSegment {
+            .aBtn,
+            .btn {
+                font-size: 9px;
+                padding: 5px;
+            }
+        }
+    }
+}

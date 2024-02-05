@@ -1,0 +1,198 @@
+@import 'src/styles/variables';
+@import 'src/styles/mixins';
+
+.wrapper {
+    width: 99%;
+    margin: auto;
+
+    .orderHeaderBox {
+        @include flex-center;
+        border: 2px solid $border-color-main;
+        box-shadow: $box-shadow-main;
+        border-radius: 5px;
+        padding: 10px;
+        gap: 10%;
+        margin-bottom: 5px;
+
+        .orderDataBox {
+            max-width: 45%;
+
+            span {
+                @include in-line-block-center;
+                margin-left: 10px;
+                margin-bottom: 2px;
+                border-radius: 5px;
+                padding: 3px;
+                background-color: #0693e3;
+                color: #fff;
+            }
+        }
+
+        .btnBox {
+            max-width: 45%;
+            @include in-line-block-center;
+
+            .btn {
+                background-color: #0693e3;
+                color: #fff;
+                border: 2px solid;
+                border-color: #0693e3;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                padding: 5px;
+                margin-right: 2px;
+
+                font: {
+                    family: 'Roboto';
+                    size: 16px;
+                }
+            }
+
+            .btn:hover {
+                background-color: #fff;
+                color: #0693e3;
+            }
+
+            .nBtn {
+                background-color: #ddd;
+                color: #fff;
+                border: 2px solid;
+                border-color: #ddd;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+                padding: 5px;
+                margin-right: 2px;
+
+                font: {
+                    family: 'Roboto';
+                    size: 16px;
+                }
+            }
+        }
+
+        .formBoxComponent,
+        .formBoxActivity {
+            position: absolute;
+            margin-top: 200px;
+            border: solid 2px $border-color-main;
+            border-radius: 5px;
+            box-shadow: $box-shadow-main;
+            padding: 20px;
+            background-color: #fff;
+
+            .btn {
+                background-color: #0693e3;
+                color: #fff;
+                border: 2px solid;
+                border-color: #0693e3;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                padding: 5px;
+                margin-right: 2px;
+
+                font: {
+                    family: 'Roboto';
+                    size: 16px;
+                }
+            }
+            .btn:hover {
+                background-color: #fff;
+                color: #0693e3;
+            }
+
+            form {
+                @include flex-column;
+                gap: 5px;
+                margin-bottom: 5px; 
+            }
+        }
+    }
+
+    .componentTable {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+
+        .ok {
+            background-color: rgba(6, 227, 54, 0.5);
+            cursor: pointer;
+        }
+
+        .ok:hover {
+            background-color: rgba(6, 227, 54, 0.8);
+        }
+
+        .nok {
+            background-color: rgba(227, 54, 6, 0.5);
+            cursor: pointer;
+        }
+
+        .nok:hover {
+            background-color: rgba(227, 54, 6, 0.8);
+        }
+
+        .nok.componentTrIsActive {
+            background-color: rgba(227, 54, 6, 0.8);
+        }
+
+        .ok.componentTrIsActive {
+            background-color: rgba(6, 227, 54, 0.8);
+        }
+
+        select {
+            width: 100%;
+            /* Wypełnij całą szerokość komórki */
+            height: 36px;
+            /* Wypełnij całą wysokość komórki */
+            padding: 0;
+            /* Usuń wypełnienie wewnętrzne */
+            margin: 0;
+            /* Usuń marginesy */
+            border: none;
+            /* Usuń obramowanie, jeśli nie jest potrzebne */
+            background-color: transparent;
+            /* Ustaw przezroczysty tło, jeśli jest potrzebne */
+            font-size: inherit;
+
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .selectBox {
+            padding: 0;
+            margin: 0;
+        }
+
+        .activityTable {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .activityTable {
+            .ok {
+                background-color: rgba(6, 227, 54, 0.5);
+                cursor: pointer;
+            }
+
+            .ok:hover {
+                background-color: rgba(6, 227, 54, 0.8);
+            }
+
+            .nok {
+                background-color: rgba(227, 54, 6, 0.5);
+                cursor: pointer;
+            }
+
+            .nok:hover {
+                background-color: rgba(227, 54, 6, 0.8);
+            }
+        }
+    }
+}
