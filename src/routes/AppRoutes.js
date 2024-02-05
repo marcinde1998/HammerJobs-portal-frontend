@@ -3,14 +3,14 @@ import axios from "axios";
 import { useEffect } from "react";
 
 //@views
-import HomeLogin from '../views/homelogin/HomeLogin';
-import OrderAdd from "../views/orderadd/OrderAdd";
-import ListComponent from "../views/listcomponent/ListComponent";
-import ListOrder from "../views/listorder/ListOrder";
-import OrderManagement from "../views/ordermanagement/OrderManagement";
-import MainMenu from '../views/mainmenu/MainMenu';
-import AdminPanel from "../views/adminpanel/AdminPanel";
-import WarehouseManagement from "../views/warehousemanagement/WarehouseManagement"
+import HomeLogin from '../pages/homelogin/HomeLogin';
+import OrderAdd from "../pages/orderadd/OrderAdd";
+import ListComponent from "../pages/listcomponent/ListComponent";
+import DeliveryList from "../pages/deliverylist/DelivetyList";
+import DeliveryManagement from "../pages/deliverymanagement/DeliveryManagement";
+import MainMenu from '../pages/mainmenu/MainMenu';
+import AdminPanel from "../pages/adminpanel/AdminPanel";
+import WarehouseManagement from "../pages/warehousemanagement/WarehouseManagement"
 
 const AppRoutes = (props) => {
 
@@ -83,15 +83,15 @@ const AppRoutes = (props) => {
             {/*Widok wyświetlania Listy Zamówień*/}
             <Route
                 path='/listorder'
-                element={<ListOrder
+                element={<DeliveryList
                     loggedUser={props.loggedUser}
                     access={props.access}
                 />}
             />
-            {/*Widok zarządzania zamówieniem*/}
+            {/*Widok zarządzania dostawą*/}
             <Route
-                path='/ordermanagement/:id'
-                element={<OrderManagement
+                path='/deliverymanagement/:id'
+                element={<DeliveryManagement
                     loggedUser={props.loggedUser}
                     access={props.access}
                 />}

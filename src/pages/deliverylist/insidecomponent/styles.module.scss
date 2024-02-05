@@ -1,0 +1,88 @@
+@import '../../../lib/styles/mixins';
+@import '../../../lib/styles/variables';
+
+.wrapper {
+   
+   table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      
+
+      th,
+      td {
+         border: 1px solid #ddd;
+         text-align: left;
+
+      }
+
+      td {
+         cursor: pointer;
+      }
+
+      th {
+         background-color: #f2f2f2;
+      }
+
+
+      .realised {
+         background-color: rgba(6, 227, 54, 0.5);
+      }
+
+      .realised:hover {
+         background-color: rgba(6, 227, 54, 0.8);
+      }
+
+      .tRealised {
+         background-color: rgba(255, 230, 0, 0.5);
+      }
+
+      .tRealised:hover {
+         background-color: rgba(255, 230, 0, 0.8);
+      }
+      .tbc {
+         background-color: rgba(255, 230, 0, 0.5);
+      }
+
+      .tbc:hover {
+         background-color: rgba(255, 230, 0, 0.8);
+      }
+
+      
+
+      input {
+         width: 50%
+      }
+
+   }
+}
+
+@media (max-width: 1023px) {
+   tr {
+      font-size: 15px;
+
+      input {
+         font-size: 10px;
+      }
+   }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+   tr {
+      font-size: 20px;
+
+      input {
+         font-size: 15px;
+      }
+   }
+}
+
+@media (min-width: 1440px) {
+   tr {
+      font-size: 25px;
+
+      input {
+         font-size: 20px;
+      }
+   }
+}

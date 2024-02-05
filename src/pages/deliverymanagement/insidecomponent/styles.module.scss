@@ -1,0 +1,21 @@
+@import '../../../lib/styles/mixins';
+@import '../../../lib/styles/variables';
+
+.wrapper {
+   .header {
+      border: solid 2px $border-color-main;
+      box-shadow: $box-shadow-main;
+      border-radius: 5px;
+      @include flex-center;
+      gap: 20px;
+
+      .dataDelivery {
+         @include flex;
+         gap: 5px;
+      }
+
+      .buttons {
+         @include flex-column;
+      }
+   }
+}

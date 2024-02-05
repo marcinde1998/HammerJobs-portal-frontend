@@ -1,0 +1,332 @@
+@import '../../lib/styles/mixins';
+@import '../../lib/styles/variables';
+
+.wrapper {
+   width: 99%;
+   margin: auto;
+
+   .userList,
+   .addUserFormBox {
+      border: 2px solid $border-color-main;
+      box-shadow: $box-shadow-main;
+      border-radius: 5px;
+      margin-bottom: 5px;
+   }
+
+   .addUserFormBox {
+      @include flex-center;
+      @include flex-column;
+
+      .formContent {
+         margin-bottom: 10px;
+
+         label {
+            margin-right: 5px;
+            margin-left: 5px;
+         }
+
+         .btn {
+            background-color: $border-color-main;
+            color: #fff;
+            border: 1px solid;
+            border-color: $border-color-main;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            padding: 5px;
+
+            font: {
+               family: 'Roboto';
+               size: 10px;
+            }
+
+         }
+
+         .btn:hover {
+            background-color: #fff;
+            color: $color-btn-main;
+         }
+      }
+   }
+
+   .userList {
+      @include flex-column;
+      align-items: center;
+
+      table {
+         width: 100%;
+      }
+
+      tr:hover {
+         background-color: $background-clor-main;
+      }
+
+      th,
+      td {
+         border: 1px solid #ddd;
+         padding: 8px;
+         text-align: left;
+      }
+   }
+
+}
+
+@media (max-width: 319px) {
+   .wrapper {
+      .addUserFormBox {
+         .formHeader {
+            font-size: 0.7rem;
+         }
+
+         .formContent {
+            @include flex-column;
+            @include flex-center;
+
+            label {
+               width: 65%;
+               padding: 5px;
+               font-size: 10px;
+            }
+
+            select {
+               max-width: 65%;
+               margin-bottom: 5px;
+               font-size: 16px;
+            }
+
+            input {
+               max-width: 65%;
+               margin-bottom: 5px;
+               font-size: 11px;
+            }
+         }
+
+      }
+
+      .userList {
+
+         .id,
+         .date {
+            display: none;
+         }
+
+         th,
+         td {
+            font-size: 10px;
+         }
+      }
+   }
+}
+
+@media (min-width: 320px) and (max-width: 479px) {
+   .wrapper {
+      .addUserFormBox {
+         .formHeader {
+            font-size: 0.7rem;
+         }
+
+         .formContent {
+            @include flex-center;
+            @include flex-column;
+
+
+            label {
+               width: 65%;
+               padding: 5px;
+               font-size: 10px;
+            }
+
+            select {
+               max-width: 80%;
+               margin-bottom: 5px;
+               font-size: 16px;
+            }
+
+            input {
+               max-width: 80%;
+               margin-bottom: 5px;
+               font-size: 11px;
+            }
+         }
+
+      }
+
+      .userList {
+
+         .id,
+         .date {
+            display: none;
+         }
+
+         th,
+         td {
+            font-size: 14px;
+         }
+      }
+   }
+}
+
+@media (min-width: 480px) and (max-width: 766px) {
+   .wrapper {
+      .addUserFormBox {
+         .formHeader {
+            font-size: 0.7rem;
+         }
+
+         .formContent {
+            @include flex-center;
+            @include flex-column;
+
+
+            label {
+               width: 65%;
+               padding: 5px;
+               font-size: 10px;
+            }
+
+            select {
+               max-width: 80%;
+               margin-bottom: 5px;
+               font-size: 16px;
+            }
+
+            input {
+               max-width: 80%;
+               margin-bottom: 5px;
+               font-size: 11px;
+            }
+         }
+      }
+
+      .userList {
+
+         th,
+         td {
+            font-size: 14px;
+         }
+      }
+   }
+}
+
+@media (min-width: 767px) and (max-width: 1023px) {
+   .wrapper {
+      .addUserFormBox {
+         .formHeader {
+            font-size: 0.7rem;
+         }
+
+         .formContent {
+            @include flex-center;
+
+            label {
+               width: 100%;
+               padding: 5px;
+               font-size: 12px;
+            }
+
+            select {
+               max-width: 80%;
+               margin-bottom: 5px;
+               font-size: 16px;
+               margin-right: 5px;
+            }
+
+            input {
+               max-width: 80%;
+               margin-bottom: 5px;
+               font-size: 12px;
+            }
+         }
+      }
+
+      .userList {
+
+         th,
+         td {
+            font-size: 14px;
+         }
+      }
+   }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+   .wrapper {
+      .addUserFormBox {
+         .formHeader {
+            font-size: 0.7rem;
+         }
+
+         .formContent {
+            @include flex-center;
+
+            label {
+               width: 100%;
+               padding: 5px;
+               font-size: 18px;
+            }
+
+            select {
+               max-width: 80%;
+               margin-bottom: 5px;
+               font-size: 16px;
+               margin-right: 5px;
+            }
+
+            input {
+               max-width: 80%;
+               margin-bottom: 5px;
+               font-size: 12px;
+            }
+         }
+      }
+
+      .userList {
+
+         th,
+         td {
+            font-size: 18px;
+         }
+      }
+   }
+}
+
+@media (min-width: 1440px) {
+   .wrapper {
+      .addUserFormBox {
+         .formHeader {
+            font-size: 1.5rem;
+         }
+
+         .formContent {
+            @include flex-center;
+
+            label {
+               width: 100%;
+               padding: 5px;
+               font-size: 22px;
+            }
+
+            select {
+               max-width: 80%;
+               margin-bottom: 5px;
+               font-size: 18px;
+               margin-right: 5px;
+            }
+
+            input {
+               max-width: 80%;
+               margin-bottom: 5px;
+               font-size: 12px;
+            }
+         }
+      }
+
+      .userList {
+
+         th,
+         td {
+            font-size: 22px;
+         }
+      }
+   }
+}
