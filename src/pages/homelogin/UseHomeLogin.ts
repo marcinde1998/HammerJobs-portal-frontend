@@ -7,7 +7,7 @@ export default function UseNavigation() {
 		username: '',
 		password: ''
 	})
-	const handleInputChange = (e) => {
+	const handleInputChange = (e: { target: any; }) => {
 		const target = e.target;
 		const name = target.name;
 

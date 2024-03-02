@@ -1,14 +1,19 @@
 import axios from "axios";
 import { useState } from "react";
 
+// @types
+import { TUser } from "../../types/shared/user";
+
 export default function UseAdminPanel() {
+    //Zmienne środowiskowe
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+    const STOCK_PASSWORD = process.env.REACT_APP_STOCK_PASSWORD_FOR_USER;
     //Ustawianie formData
     const [formData, setFormData] = useState({
         username: '',
-        password: 'HJ2023',
-        rights: ''
+        password: STOCK_PASSWORD,
     });
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: { target: any; }) => {
         const target = e.target;
         const name = target.name;
         setFormData({
@@ -18,13 +23,14 @@ export default function UseAdminPanel() {
         console.log(formData);
     }
     //Obsługa wysyłania
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: { preventDefault: () => void; }) => {
+        console.log(formData);
         e.preventDefault();
+        
         axios
-            .post('http://172.22.126.11:8080/userAdd', {
+            .post(`${API_BASE_URL}/users`, {
                 username: formData.username,
                 password: formData.password,
-                rights: formData.rights
             })
             .then((res) => {
                 getUserList();
@@ -34,23 +40,23 @@ export default function UseAdminPanel() {
             });
     }
     //Pobieranie listy użytkowników
-    const [userList, setUserList] = useState();
+    const [userList, setUserList] = useState<TUser[] | null>(null);
     const getUserList = () => {
         axios
-            .get('http://172.22.126.11:8080/userList')
+            .get(`${API_BASE_URL}/users`)
             .then((res) => {
                 setUserList(res.data)
                 console.log(res.data);
             })
-            .catch (() => {
+            .catch(() => {
                 //DODAJ OBSŁUGE BŁĘDÓW
             })
     }
-    //formatowanie daty na normalną
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-    }
+    // //formatowanie daty na normalną
+    // function formatDate(dateString: string | number | Date) {
+    //     const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    //     return new Date(dateString).toLocaleDateString(undefined, options);
+    // }
 
     return {
         //Ustawianie formData
@@ -62,6 +68,6 @@ export default function UseAdminPanel() {
         getUserList,
         userList,
         //formatowanie na datę
-        formatDate
+        // formatDate
     };
 }

@@ -32,7 +32,7 @@ function App() {
         access={access}
         setAccess={setAccess}
       />
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }
