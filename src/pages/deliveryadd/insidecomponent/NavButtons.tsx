@@ -25,9 +25,8 @@ const NavButtons: React.FC<AddFormProps> = ({ setFormSubmitted }) => {
                 onClick={() => {
                     setFormSubmitted(false);
                     setFormData({
-                        number: '',
-                        clientName: '',
-                        typeOfMaterial: ''
+                        customerId: 0,
+                        componentTypeId: 0
                     });
                 }}>Dodaj kolejną dostawę</button>
             <Link

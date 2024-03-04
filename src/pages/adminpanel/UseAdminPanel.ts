@@ -26,12 +26,11 @@ export default function UseAdminPanel() {
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         console.log(formData);
         e.preventDefault();
-        
-        axios
-            .post(`${API_BASE_URL}/users`, {
-                username: formData.username,
-                password: formData.password,
-            })
+
+        axios.post(`${API_BASE_URL}/users`, {
+            username: formData.username,
+            password: formData.password,
+        })
             .then((res) => {
                 getUserList();
             })
@@ -42,8 +41,7 @@ export default function UseAdminPanel() {
     //Pobieranie listy użytkowników
     const [userList, setUserList] = useState<TUser[] | null>(null);
     const getUserList = () => {
-        axios
-            .get(`${API_BASE_URL}/users`)
+        axios.get(`${API_BASE_URL}/users`)
             .then((res) => {
                 setUserList(res.data)
                 console.log(res.data);
@@ -52,12 +50,6 @@ export default function UseAdminPanel() {
                 //DODAJ OBSŁUGE BŁĘDÓW
             })
     }
-    // //formatowanie daty na normalną
-    // function formatDate(dateString: string | number | Date) {
-    //     const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-    //     return new Date(dateString).toLocaleDateString(undefined, options);
-    // }
-
     return {
         //Ustawianie formData
         formData,

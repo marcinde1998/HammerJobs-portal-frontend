@@ -16,6 +16,10 @@ const AddForm: React.FC<AddFormProps> = ({ setFormSubmitted }) => {
         formData,
         handleSubmit,
         handleInputChange,
+        // Pobieranie do ustawienia listy wybieranej typów komponentów
+        componentTypesList,
+        // Pobieranie do ustawienia listy wybieranej klientów
+        customersList
     } = UseDeliveryAdd();
 
     return (
@@ -25,45 +29,34 @@ const AddForm: React.FC<AddFormProps> = ({ setFormSubmitted }) => {
                 handleSubmit(e);
                 setFormSubmitted(true);
             }}
-            action='http://172.22.126.11:8080/orderAdd'
             method='POST'
         >
             <h2>Dodaj Zamówienie</h2>
-            <div className={styles.numberInput}>
-                <label htmlFor='number'>Numer Zamówienia: </label>
-                <input
-                    type='text'
-                    id='number'
-                    name='number'
-                    value={formData.number}
-                    onChange={handleInputChange}
-                    required
-                />
-            </div>
-            <div className={styles.clientInput}>
-                <label htmlFor='clientName'>Klient: </label>
-                <input
-                    type='text'
-                    id='clientName'
-                    name='clientName'
-                    value={formData.clientName}
-                    onChange={handleInputChange}
-                    required
-                />
-            </div>
-            <label htmlFor='typeOfMaterial'>Typ materiału: </label>
+            <label htmlFor='customerId'>Klient: </label>
             <select
-                id='typeOfMaterial'
-                name='typeOfMaterial'
-                value={formData.typeOfMaterial}
+                id='customerId'
+                name='customerId'
+                value={formData.customerId}
                 onChange={handleInputChange}
                 required
             >
                 <option value=""></option>
-                <option value="1">PÓŁKI WISZĄCE</option>
-                <option value="2">PÓŁKI STOJĄCE</option>
-                <option value="3">SKRZYNIE DACHOWE</option>
-                <option value="4">KRATKI WENTYLACYJNE</option>
+                {customersList.map((customer) => (
+                    <option key={customer.id} value={customer.id}>{customer.name}</option>
+                ))}
+            </select>
+            <label htmlFor='componentTypeId'>Typ materiału: </label>
+            <select
+                id='componentTypeId'
+                name='componentTypeId'
+                value={formData.componentTypeId}
+                onChange={handleInputChange}
+                required
+            >
+                <option value=""></option>
+                {componentTypesList.map((componentType) => (
+                    <option key={componentType.id} value={componentType.id}>{componentType.name}</option>
+                ))}
             </select>
             <input
                 type="submit"

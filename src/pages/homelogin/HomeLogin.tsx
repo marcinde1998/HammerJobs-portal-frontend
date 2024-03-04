@@ -27,13 +27,16 @@ function HomeLogin() {
         setError
     } = UseHomeLogin();
 
+    //Zmienne środowiskowe
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
     const { setLoggedInUserFromToken, loggedUser, login } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:8080/auth/login', {
+            const res = await axios.post(`${API_BASE_URL}/auth/login`, {
                 username: formData.username,
                 password: formData.password
             });
@@ -58,7 +61,6 @@ function HomeLogin() {
                     <form
                         className={styles.loginFormBox}
                         onSubmit={handleSubmit}
-                        action="http://172.22.126.11:8080/userLogin"
                         method="POST"
                     >
                         <label htmlFor="username">Nazwa użytkownika:</label>

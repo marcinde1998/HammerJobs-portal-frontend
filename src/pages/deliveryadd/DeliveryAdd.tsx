@@ -1,5 +1,5 @@
-import { Navigate } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import { UserContext } from "../../contexts/LoggedUser";
 
 //@Styles
 import styles from './styles.module.scss';
@@ -8,15 +8,20 @@ import styles from './styles.module.scss';
 import LoadingComponent from "../../components/shared/loadingcomponent/LoadingComponent";
 import AddForm from "./insidecomponent/AddForm";
 import NavButtons from "./insidecomponent/NavButtons";
+import AccessDenied from "components/shared/accessDenied/AccessDenied";
 
-//Hooks 
+// @Hooks 
 import UseDeliveryAdd from "./UseDeliveryAdd";
 
-//@Types shared
-import { IAccess } from '../../types/shared/access';
+// @Utils
+import { checkUserRole } from "utils/authUtils";
 
-const DeliveryAdd: React.FC<IAccess> = ({ access }) => {
 
+const DeliveryAdd: React.FC = () => {
+    //Zabezpieczenie strony
+    const { loggedUser } = useContext(UserContext);
+    const allowedRoles = ["admin", "manager"];
+    const isAuthorized = checkUserRole(loggedUser, allowedRoles);
     const {
         formSubmitted,
         setFormSubmitted
@@ -24,16 +29,21 @@ const DeliveryAdd: React.FC<IAccess> = ({ access }) => {
     useEffect(() => {
         console.log(formSubmitted)
     }, [formSubmitted])
-
-    return (
-        <div className={styles.wrapper}>
-            {formSubmitted ? (
-                <NavButtons setFormSubmitted={setFormSubmitted} />
-            ) : (
-                <AddForm setFormSubmitted={setFormSubmitted} />
-            )}
-        </div>
-    )
+    if (!isAuthorized) {
+        return (<AccessDenied />)
+    } else if (isAuthorized) {
+        return (
+            <div className={styles.wrapper}>
+                {formSubmitted ? (
+                    <NavButtons setFormSubmitted={setFormSubmitted} />
+                ) : (
+                    <AddForm setFormSubmitted={setFormSubmitted} />
+                )}
+            </div>
+        )
+    } else {
+        return (<LoadingComponent />)
+    }
 }
 
 export default DeliveryAdd;

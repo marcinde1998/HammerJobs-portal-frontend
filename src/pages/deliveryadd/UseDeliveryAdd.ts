@@ -1,13 +1,13 @@
 import axios from "axios";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 
 export default function UseDeliveryAdd() {
+    //Zmienne środowiskowe
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     const [formData, setFormData] = useState({
-        number: '',
-        clientName: '',
-        typeOfMaterial: ''
+        customerId: 0,
+        componentTypeId: 0
     })
     const handleInputChange = (e: { target: any; }) => {
         const target = e.target;
@@ -23,9 +23,9 @@ export default function UseDeliveryAdd() {
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         try {
-            await axios.post('http://172.22.126.11:8080/orderAdd', {
-                number: formData.number,
-                clientName: formData.clientName
+            await axios.post(`${API_BASE_URL}/deliveries`, {
+                customerId: formData.customerId,
+                componentTypeId: formData.componentTypeId
             })
                 .then((res) => {
                     console.log(res);
@@ -37,6 +37,34 @@ export default function UseDeliveryAdd() {
             console.error('Błąd podczas wysyłania danych: ', error);
         }
     };
+    // Pobieranie do ustawienia listy wybieranej typów komponentów
+    const [componentTypesList, setComponentTypesList] = useState([]);
+    const getComponentTypeList = () => {
+        axios.get(`${API_BASE_URL}/component-types`)
+            .then((res) => {
+                console.log(res);
+                setComponentTypesList(res.data);
+            })
+            .catch(() => {
+                //DODAJ OBSŁUGE BŁĘDÓW
+            })
+    }
+     // Pobieranie do ustawienia listy wybieranej klientów
+     const [customersList, setCustomersList] = useState([]);
+    const getCustomersList = () => {
+        axios.get(`${API_BASE_URL}/customers`)
+            .then((res) => {
+                console.log(res);
+                setCustomersList(res.data);
+            })
+            .catch(() => {
+                //DODAJ OBSŁUGE BŁĘDÓW
+            })
+    }
+    useEffect(() => {
+        getComponentTypeList();
+        getCustomersList();
+      }, []);
 
     return {
         formData,
@@ -45,6 +73,10 @@ export default function UseDeliveryAdd() {
         setFormSubmitted,
         serwerResData,
         handleSubmit,
-        handleInputChange
+        handleInputChange,
+        // Pobieranie do ustawienia listy wybieranej typów komponentów
+        componentTypesList,
+        // Pobieranie do ustawienia listy wybieranej klientów
+        customersList
     };
 }
