@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { DeliveryContext } from 'contexts/Delivery';
 
 //@Styles
 import styles from './styles.module.scss';
@@ -9,19 +10,10 @@ import formatDate from '../../../utils/dateUtils';
 //@components
 import UseDeliveryListComponent from './UseDeliveryListComponent';
 
-//@ types
-interface IDelivery {
-    id: string;
-    typeOfMaterial: string;
-    clientName: string;
-    creationDate: string;
-    lastModified: string | null;
-    deliveryNumber: string;
-    status: string;
-}
-export type TDelivery = IDelivery;
 
 export default function DeliveryListComponent() {
+    const { setDeliveryId } = useContext(DeliveryContext)
+    
     const {
         //Filtrowanie
         reverseList,
@@ -30,45 +22,55 @@ export default function DeliveryListComponent() {
         //Przekierowanie do widoku zarządzania dostawą
         redirectToDetailView
     } = UseDeliveryListComponent();
+    console.log(reverseList);
 
     return (
         <div className={styles.wrapper}>
             <table className={styles.tableDeliveryWrapper}>
                 <thead>
                     <tr>
-                        <th>Dostawa<br />
+                        <th>ID<br />
                             <input
                                 type="text"
-                                value={filters.deliveryNumber}
-                                onChange={e => setFilters({ ...filters, deliveryNumber: e.target.value })}
+                                value={filters.id}
+                                onChange={e => setFilters({ ...filters, id: e.target.value })}
                                 placeholder="Filtruj..."
                             />
                         </th>
-                        <th>Typ Materiału <br />
+                        <th>Klient <br />
                             <input
                                 type="text"
-                                value={filters.typeOfMaterial}
-                                onChange={e => setFilters({ ...filters, typeOfMaterial: e.target.value })}
+                                value={filters.customerName}
+                                onChange={e => setFilters({ ...filters, customerName: e.target.value })}
                                 placeholder="Filtruj..."
                             />
                         </th>
-                        <th>Status <br />
+                        <th>Numer Dostawy <br />
                             <input
                                 type="text"
-                                value={filters.status}
-                                onChange={e => setFilters({ ...filters, status: e.target.value })}
+                                value={filters.number}
+                                onChange={e => setFilters({ ...filters, number: e.target.value })}
                                 placeholder="Filtruj..."
                             />
                         </th>
-                        <th>Nazwa Klienta<br />
+                        <th>Status<br />
                             <input
                                 type="text"
-                                value={filters.clientName}
-                                onChange={e => setFilters({ ...filters, clientName: e.target.value })}
+                                value={filters.statusName}
+                                onChange={e => setFilters({ ...filters, statusName: e.target.value })}
                                 placeholder="Filtruj..."
                             />
                         </th>
-                        <th>Data Dodania <br />
+                        <th>Typ Komponentu <br />
+                            <input
+                                type="text"
+                                value={filters.componentTypeId}
+                                onChange={e => setFilters({ ...filters, componentTypeId: e.target.value })}
+                                placeholder="Filtruj..."
+                            />
+                        </th>
+                        <th>Data Dodania
+                            <br />
                             <input
                                 type="text"
                                 value={filters.creationDate}
@@ -85,6 +87,15 @@ export default function DeliveryListComponent() {
                                 placeholder="Filtruj..."
                             />
                         </th>
+                        <th>id użytkownika
+                            <br />
+                            <input
+                                type="text"
+                                value={filters.createdByUserId}
+                                onChange={e => setFilters({ ...filters, createdByUserId: e.target.value })}
+                                placeholder="Filtruj..."
+                            />
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,15 +105,17 @@ export default function DeliveryListComponent() {
                             className={list.status === 'Zrealizowano' ? styles.realised : styles.tRealised}
                             onClick={() => {
                                 redirectToDetailView(list.id);
-                                sessionStorage.setItem('deliveryId', JSON.stringify(list.id));
+                                setDeliveryId(list.id);
                             }}
                         >
-                            <td>{list.deliveryNumber}</td>
-                            <td>{list.typeOfMaterial}</td>
-                            <td>{list.status}</td>
-                            <td>{list.clientName}</td>
+                            <td>{list.id}</td>
+                            <td>{list.customer.name}</td>
+                            <td>{list.number}</td>
+                            <td>{list.status.name}</td>
+                            <td>{list.componentTypeId}</td>
                             <td>{formatDate(list.creationDate)}</td>
-                            <td>{list.lastModified !== null ? formatDate(list.lastModified) : 'BRAK'}</td>
+                            <td>{formatDate(list.lastModified)}</td>
+                            <td>{list.createdByUserId}</td>
                         </tr>
                     ))}
                 </tbody>

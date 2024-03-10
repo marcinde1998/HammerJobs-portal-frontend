@@ -7,26 +7,26 @@ export const listMainMenu = [
     },
     {
         label: 'Dodaj Dostawę',
-        roles: ['admin', 'kierownik'],
+        roles: ['admin', 'manager'],
         visible: true,
         destinationURL: '/deliveryadd'
     },
     {
-        label: 'Lista Zamówień',
-        roles: ['admin', 'kierownik', 'lider'],
+        label: 'Lista Dostaw',
+        roles: ['admin', 'manager', 'leader'],
         visible: true,
         destinationURL: '/deliverylist'
     },
     {
         label: 'Lista Komponentów',
-        roles: ['admin', 'kierownik', 'lider', 'pracownik'],
+        roles: ['admin', 'manager', 'leader', 'employee'],
         visible: true,
         destinationURL: '/componentlist'
     },
     {
         label: 'Magazyn',
-        roles: ['admin', 'kierownik', 'lider', 'pracownik'],
-        visible: true,
+        roles: ['admin', 'manager', 'leader', 'employee'],
+        visible: false,
         destinationURL: '/warehousemanagement'
     }
 ]

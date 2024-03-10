@@ -17,8 +17,9 @@ export const LoggedUserProvider = ({ children }) => {
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
-        setLoggedUser({ userId: decodedToken.user.id, username:decodedToken.user.username, roles: decodedToken.user.roles });
-      } catch (error) {
+        setLoggedUser({ userId: decodedToken.id, username: decodedToken.username, roles: decodedToken.roles });
+      } 
+      catch (error) {
         console.error('Error decoding JWT token:', error);
         sessionStorage.removeItem('token');
         navigate('/'); // Przekierowanie użytkownika do innej strony w przypadku błędu

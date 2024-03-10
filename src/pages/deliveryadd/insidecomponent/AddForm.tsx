@@ -6,12 +6,8 @@ import UseDeliveryAdd from '../UseDeliveryAdd';
 //@Styles
 import styles from './styles.module.scss';
 
-interface AddFormProps {
-    setFormSubmitted: (value: boolean) => void;
-}
 
-const AddForm: React.FC<AddFormProps> = ({ setFormSubmitted }) => {
-
+const AddForm: React.FC = () => {
     const {
         formData,
         handleSubmit,
@@ -19,7 +15,7 @@ const AddForm: React.FC<AddFormProps> = ({ setFormSubmitted }) => {
         // Pobieranie do ustawienia listy wybieranej typów komponentów
         componentTypesList,
         // Pobieranie do ustawienia listy wybieranej klientów
-        customersList
+        customersList,
     } = UseDeliveryAdd();
 
     return (
@@ -27,7 +23,6 @@ const AddForm: React.FC<AddFormProps> = ({ setFormSubmitted }) => {
             className={styles.form}
             onSubmit={(e) => {
                 handleSubmit(e);
-                setFormSubmitted(true);
             }}
             method='POST'
         >

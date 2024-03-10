@@ -18,8 +18,6 @@ function ListComponent() {
         setShowListDetails,
         setShowListSubcomponents
     } = UseListComponent();
-    console.log(componentList)
-    console.log(componentList[0].subcomponents);
 
     if (listChoice === null) {
         return (
@@ -56,11 +54,11 @@ function ListComponent() {
                     <thead>
                         <tr>
                             <th>id</th>
-                            <th>componentName_1</th>
-                            <th>componentName_2</th>
+                            <th>Nr ,,GL"</th>
+                            <th>Nazwa</th>
                             <th>Typ Komponentu</th>
                             <th>Status</th>
-                            <th>Nr zamówienia</th>
+                            <th>Nr dostawy</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,11 +67,11 @@ function ListComponent() {
                                 key={list.id}
                             >
                                 <td>{list.id}</td>
-                                <td>{list.componentName_1}</td>
-                                <td>{list.componentName_2 === null ? 'BRAK' : list.componentName_2}</td>
-                                <td>{list.componentTypeName}</td>
-                                <td>{list.status}</td>
-                                <td>{list.orderNumber === null ? 'BRAK' : list.orderNumber}</td>
+                                <td>{list.nameOne}</td>
+                                <td>{list.nameTwo === null ? 'BRAK' : list.nameTwo}</td>
+                                <td>{list.componentType.name}</td>
+                                <td>{list.status.name}</td>
+                                <td>{list.delivery.number === null ? 'BRAK' : list.delivery.number}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -103,16 +101,16 @@ function ListComponent() {
                                 key={list.id}
                             >
                                 <td>{list.id}</td>
-                                <td>{list.componentName_1}</td>
-                                <td>{list.componentName_2 === null ? 'BRAK' : list.componentName_2}</td>
-                                <td>{list.subcomponents.leftSideStatus}</td>
-                                <td>{list.subcomponents.rightSideStatus}</td>
-                                <td>{list.subcomponents.silverFrontStripStatus}</td>
-                                <td>{list.subcomponents.glassLampshadeStatus}</td>
-                                <td>{list.subcomponents.plasticLampshadeStatus}</td>
-                                <td>{list.subcomponents.bundleStatus}</td>
-                                <td>{list.subcomponents.lightingStatus}</td>
-                                <td>{list.subcomponents.whiteCentralStripStatus}</td>
+                                <td>{list.nameOne}</td>
+                                <td>{list.nameTwo === null ? 'BRAK' : list.nameTwo}</td>
+                                <td>{list.componentSubcomponents[0].status.id}</td>
+                                <td>{list.componentSubcomponents[0].status.id}</td>
+                                <td>{list.componentSubcomponents[0].status.id}</td>
+                                <td>{list.componentSubcomponents[0].status.id}</td>
+                                <td>{list.componentSubcomponents[0].status.id}</td>
+                                <td>{list.componentSubcomponents[0].status.id}</td>
+                                <td>{list.componentSubcomponents[0].status.id}</td>
+                                <td>{list.componentSubcomponents[0].status.id}</td>
                             </tr>
                         ))}
                     </tbody>

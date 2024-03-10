@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { DeliveryContext } from 'contexts/Delivery';
 
 //@Hooks
 import UseDeliveryAdd from '../UseDeliveryAdd';
@@ -7,22 +8,20 @@ import UseDeliveryAdd from '../UseDeliveryAdd';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
 
-interface AddFormProps {
-    setFormSubmitted: (value: boolean) => void;
-}
+const NavButtons: React.FC = () => {
+    const { deliveryNumber, setDeliveryNumber, setFormSubmitted, deliveryId } = useContext(DeliveryContext);
 
-const NavButtons: React.FC<AddFormProps> = ({ setFormSubmitted }) => {
     const {
-        serwerResData,
         setFormData
     } = UseDeliveryAdd();
-
+    
     return (
         <div className={styles.orderAddNotification}>
-            <h2>Dodano dostawę {serwerResData}</h2>
+            <h2>Dodano dostawę {deliveryNumber}</h2>
             <button
                 className={styles.btn}
                 onClick={() => {
+                    setDeliveryNumber(null)
                     setFormSubmitted(false);
                     setFormData({
                         customerId: 0,
@@ -31,18 +30,23 @@ const NavButtons: React.FC<AddFormProps> = ({ setFormSubmitted }) => {
                 }}>Dodaj kolejną dostawę</button>
             <Link
                 className={styles.aBtn}
-                to='/listorder'
+                to='/deliverylist'
+                onClick={() => {
+                    setFormSubmitted(false);
+                    setDeliveryNumber(null)
+                }}
             >
                 Przejdź do listy dostaw
             </Link>
             <Link
                 className={styles.aBtn}
-                to={`/deliverymanagement/${serwerResData}`}
+                to={`/deliverymanagement/${deliveryId}`}
                 onClick={() => {
-                    sessionStorage.setItem('orderId', serwerResData || '');
+                    setFormSubmitted(false);
+                    setDeliveryNumber(null)
                 }}
             >
-                Przejdź do zamówienia
+                Przejdź do dostawy
             </Link>
         </div>
     )

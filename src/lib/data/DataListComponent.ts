@@ -4,11 +4,11 @@ export const listComponentToChoice = [
         subcomponents: true
     },
     {
-        choice: 'PÓŁKI STOJĄCE',
+        choice: 'SKRZYNIE DACHOWE',
         subcomponents: false
     },
     {
-        choice: 'SKRZYNIE DACHOWE',
+        choice: 'PÓŁKI STOJĄCE',
         subcomponents: false
-    }
+    },
 ]

@@ -1,18 +1,98 @@
 import axios from 'axios';
-import { useState } from 'react';
-
-//lib
-import { DeliveryData, DeliveryListComponents } from '../../../lib/data/DataOrders'
+import { DeliveryContext } from 'contexts/Delivery';
+import { useContext, useEffect, useState } from 'react';
 
 export default function UseOrderManagement() {
-    //Pobieranie listy komponentow z dostawy
-    const dataDelivery = DeliveryData;
-    const reverseList = [...DeliveryListComponents];
+    //Zmienne środowiskowe
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+    //Pobieranie DataDelivery
+    const { deliveryId, setAddComponentForm, setAddSubcomponentsForm } = useContext(DeliveryContext)
+    const [deliveryData, setDeliveryData] = useState([])
+    const getDeliveryData = () => {
+        axios.get(`${API_BASE_URL}/deliveries/${deliveryId}`)
+            .then((res) => {
+                setDeliveryData([res.data]);
+            })
+            .catch(() => {
+                //DODAJ OBSŁUGE BŁĘDÓW
+            })
+    }
+
+    // Dodawanie komponentu do zamówienia
+    const [formDataComponentAdd, setFormDataComponentAdd] = useState({
+        deliveryId: deliveryId,
+        productionDate: '', // Domyślnie ustawiona na obecną datę w formacie 'YYYY-MM-DD'
+        controlDate: '', // Domyślnie ustawiona na obecną datę w formacie 'YYYY-MM-DD'
+        nameOne: '',
+        nameTwo: '',
+        oldMonNumber: '', // Domyślnie ustawione na 0
+        newMonNumber: '', // Domyślnie ustawione na 0
+        size: '' // Domyślnie ustawione na 0
+    });
+    const handleInputAddComponentChange = (e: any) => {
+        const target = e.target;
+        const name = target.name;
+        console.log(formDataComponentAdd);
+        setFormDataComponentAdd({
+            ...formDataComponentAdd,
+            [name]: target.value
+        });
+    }
+
+    const [componentFromDelivery, setComponentsFromDelivery] = useState([]);
+    const getComponentsFromDelivery = () => {
+        axios.get(`${API_BASE_URL}/components/byDeliveryId/${deliveryId}`)
+            .then((res) => {
+                console.log(res);
+                setComponentsFromDelivery(res.data);
+            })
+            .catch(() => {
+                //DODAJ OBSŁUGE BŁĘDÓW
+            })
+    }
     
+    const [subComponentsStatus, setSubcomponentsStatus] = useState([])
+    const handleSubmitAddComponent = (e: any) => {
+        console.log(formDataComponentAdd);
+        e.preventDefault();
+        console.log(formDataComponentAdd);
+        axios
+            .post(`${API_BASE_URL}/components`, {
+                deliveryId: deliveryId,
+                productionDate: formDataComponentAdd.productionDate,
+                controlDate: formDataComponentAdd.productionDate,
+                nameOne: formDataComponentAdd.nameOne,
+                nameTwo: formDataComponentAdd.nameTwo,
+                oldMonNumber: parseInt(formDataComponentAdd.oldMonNumber),
+                newMonNumber: parseInt(formDataComponentAdd.newMonNumber),
+                size: parseInt(formDataComponentAdd.size),
+            })
+            .then((res) => {
+                console.log(res);
+                setSubcomponentsStatus(res.data.componentSubcomponents)
+                setAddComponentForm(false);
+                setAddSubcomponentsForm(true);
+                getComponentsFromDelivery();
+                console.log(formDataComponentAdd);
+            })
+            .catch(() => {
+                //DODAJ OBSŁUGE BŁĘDÓW
+            });
+    }
+    useEffect(() => {
+        getDeliveryData();
+        getComponentsFromDelivery();
+        console.log(subComponentsStatus)
+    }, [subComponentsStatus]);
     return {
         //Pobieranie listy komponentow z dostawy
-        dataDelivery,
-        reverseList
+        deliveryData,
+        // Dodawanie komponentu do zamówienia
+        formDataComponentAdd,
+        handleInputAddComponentChange,
+        handleSubmitAddComponent,
+        componentFromDelivery,
+        subComponentsStatus
     };
 }
 

@@ -6,7 +6,7 @@ import './styles.module.scss';
 //@components
 import DeliveryListComponent from './insidecomponent/DeliveryListComponent';
 
-function ListOrder(props: any) {
+function ListOrder() {
     return (
         <DeliveryListComponent />
     )

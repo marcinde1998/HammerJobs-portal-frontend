@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/LoggedUser";
+import { DeliveryContext } from "../../contexts/Delivery";
 
 //@Styles
 import styles from './styles.module.scss';
@@ -10,9 +11,6 @@ import AddForm from "./insidecomponent/AddForm";
 import NavButtons from "./insidecomponent/NavButtons";
 import AccessDenied from "components/shared/accessDenied/AccessDenied";
 
-// @Hooks 
-import UseDeliveryAdd from "./UseDeliveryAdd";
-
 // @Utils
 import { checkUserRole } from "utils/authUtils";
 
@@ -22,22 +20,17 @@ const DeliveryAdd: React.FC = () => {
     const { loggedUser } = useContext(UserContext);
     const allowedRoles = ["admin", "manager"];
     const isAuthorized = checkUserRole(loggedUser, allowedRoles);
-    const {
-        formSubmitted,
-        setFormSubmitted
-    } = UseDeliveryAdd();
-    useEffect(() => {
-        console.log(formSubmitted)
-    }, [formSubmitted])
+    const { formSubmitted } = useContext(DeliveryContext);
+
     if (!isAuthorized) {
         return (<AccessDenied />)
     } else if (isAuthorized) {
         return (
             <div className={styles.wrapper}>
                 {formSubmitted ? (
-                    <NavButtons setFormSubmitted={setFormSubmitted} />
+                     <NavButtons />
                 ) : (
-                    <AddForm setFormSubmitted={setFormSubmitted} />
+                    <AddForm />
                 )}
             </div>
         )
