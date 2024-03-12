@@ -72,7 +72,6 @@ export default function UseWarehouseManagement() {
             ...formDataPositionAdd,
             [name]: target
         });
-
     }
 
     const handlePositionAddSubmit = (e) => {

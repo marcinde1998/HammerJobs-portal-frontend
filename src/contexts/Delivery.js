@@ -14,11 +14,9 @@ export const DeliveryProvider = ({ children }) => {
   const [addSubcomponentsForm, setAddSubcomponentsForm] = useState(false);
 
   // useEffect(() => {
-  //   console.log(deliveryNumber);
-  //   console.log(formSubmitted);
-  //   console.log(deliveryId);
-  //   console.log(addComponentForm);
-  // }, [deliveryNumber, formSubmitted, deliveryId, addComponentForm])
+  //   console.log(addSubcomponentsForm);
+   
+  // }, [addSubcomponentsForm])
 
   return (
     <DeliveryContext.Provider value={{

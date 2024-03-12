@@ -16,7 +16,14 @@ function ListComponent() {
         showListDetails,
         showListSubcomponents,
         setShowListDetails,
-        setShowListSubcomponents
+        setShowListSubcomponents,
+        showChangeStatus,
+        setShowChangeStatus,
+        setStatuseForSubcomponents,
+        choicedList,
+        changeSubcomponentStatus,
+        sortedReverseList,
+        insideNumber
     } = UseListComponent();
 
     if (listChoice === null) {
@@ -36,8 +43,6 @@ function ListComponent() {
             </div>
         )
     } else if (listChoice.choice !== null) {
-        console.log(listChoice);
-        console.log(showListDetails);
         if (showListDetails === false && showListSubcomponents === false) {
             if (listChoice.subcomponents === true) {
                 return (
@@ -79,42 +84,61 @@ function ListComponent() {
             )
         } else if (showListSubcomponents === true) {
             return (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>componentName_1</th>
-                            <th>componentName_2</th>
-                            <th>Boczek lewy</th>
-                            <th>Boczek prawy</th>
-                            <th>Srebrna lis. front.</th>
-                            <th>Szklany klosz</th>
-                            <th>Plastikowy klosz</th>
-                            <th>Wiązka</th>
-                            <th>Oświetlenie</th>
-                            <th>B. lis. cent.</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {componentListChoiced && componentListChoiced.map(list => (
-                            <tr
-                                key={list.id}
-                            >
-                                <td>{list.id}</td>
-                                <td>{list.nameOne}</td>
-                                <td>{list.nameTwo === null ? 'BRAK' : list.nameTwo}</td>
-                                <td>{list.componentSubcomponents[0].status.id}</td>
-                                <td>{list.componentSubcomponents[0].status.id}</td>
-                                <td>{list.componentSubcomponents[0].status.id}</td>
-                                <td>{list.componentSubcomponents[0].status.id}</td>
-                                <td>{list.componentSubcomponents[0].status.id}</td>
-                                <td>{list.componentSubcomponents[0].status.id}</td>
-                                <td>{list.componentSubcomponents[0].status.id}</td>
-                                <td>{list.componentSubcomponents[0].status.id}</td>
+                <div>
+                    {showChangeStatus && (
+                        <div>
+                            <h3>Ustaw Status</h3>
+                            <h4>Nr Wewnętrzny {insideNumber}</h4>
+                            {choicedList && choicedList.map(list => (
+                                <div key={list.id}>
+                                    <div>{list.name}</div>
+                                    {list.name === 'Boczek Lewy' || list.name === 'Boczek Prawy' || list.name === 'Srebrna lis. front.' || list.name === 'B. lis. cent.' ? (
+                                        <button onClick={(() => changeSubcomponentStatus(list.id, 4))}>Potwierdz Naprawę</button>
+                                    ) : (
+                                        list.name === 'Szklany Klosz' || list.name === 'Plastikowy Klosz' || list.name === 'Wiązka' || list.name === 'Oświetlenie' ? (
+                                            <button onClick={(() => changeSubcomponentStatus(list.id, 5))}>Potwierdz Wymianę</button>
+                                        ) : null
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Numer Wewnętrzny</th>
+                                <th>Nr ,,GL"</th>
+                                <th>Nazwa</th>
+                                <th>Boczek lewy</th>
+                                <th>Boczek prawy</th>
+                                <th>Srebrna lis. front.</th>
+                                <th>Szklany klosz</th>
+                                <th>Plastikowy klosz</th>
+                                <th>Wiązka</th>
+                                <th>Oświetlenie</th>
+                                <th>B. lis. cent.</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {sortedReverseList && sortedReverseList.map(list => (
+                                <tr
+                                    key={list.id}
+                                    onClick={() => setStatuseForSubcomponents(list.componentSubcomponents, list.insideNumber)}
+                                >
+                                    <td>{list.insideNumber}</td>
+                                    <td>{list.nameOne}</td>
+                                    <td>{list.nameTwo === null ? 'BRAK' : list.nameTwo}</td>
+                                    {list.componentSubcomponents.map(statuses => (
+                                        <React.Fragment key={statuses.id}>
+                                            <td>{statuses.status.name}</td>
+                                        </React.Fragment>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                </div>
             )
         }
     }

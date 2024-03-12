@@ -6,8 +6,9 @@ export default function UseOrderManagement() {
     //Zmienne środowiskowe
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     //Pobieranie DataDelivery
-    const { deliveryId, setAddComponentForm, setAddSubcomponentsForm } = useContext(DeliveryContext)
+    const {  setAddComponentForm, setAddSubcomponentsForm } = useContext(DeliveryContext)
     const [deliveryData, setDeliveryData] = useState([])
+    const deliveryId = window.location.pathname.split('/').pop();
     const getDeliveryData = () => {
         axios.get(`${API_BASE_URL}/deliveries/${deliveryId}`)
             .then((res) => {
@@ -18,6 +19,7 @@ export default function UseOrderManagement() {
             })
     }
 
+    
     // Dodawanie komponentu do zamówienia
     const [formDataComponentAdd, setFormDataComponentAdd] = useState({
         deliveryId: deliveryId,
@@ -50,7 +52,7 @@ export default function UseOrderManagement() {
                 //DODAJ OBSŁUGE BŁĘDÓW
             })
     }
-    
+    // Status subcomponentów
     const [subComponentsStatus, setSubcomponentsStatus] = useState([])
     const handleSubmitAddComponent = (e: any) => {
         console.log(formDataComponentAdd);
@@ -58,7 +60,7 @@ export default function UseOrderManagement() {
         console.log(formDataComponentAdd);
         axios
             .post(`${API_BASE_URL}/components`, {
-                deliveryId: deliveryId,
+                deliveryId: parseInt(deliveryId),
                 productionDate: formDataComponentAdd.productionDate,
                 controlDate: formDataComponentAdd.productionDate,
                 nameOne: formDataComponentAdd.nameOne,
@@ -74,11 +76,45 @@ export default function UseOrderManagement() {
                 setAddSubcomponentsForm(true);
                 getComponentsFromDelivery();
                 console.log(formDataComponentAdd);
+                setFormDataComponentAdd({
+                    deliveryId: deliveryId,
+                    productionDate: '',
+                    controlDate: '',
+                    nameOne: '',
+                    nameTwo: '',
+                    oldMonNumber: '',
+                    newMonNumber: '',
+                    size: ''
+                });
             })
             .catch(() => {
                 //DODAJ OBSŁUGE BŁĘDÓW
             });
     }
+    const [statusSubcomponentChange, setStatusSubcomponent] = useState({
+        statusId: ''
+    });
+
+    const handleStatusSubcomponentChange = (e: any, id: any) => {
+        const target = e;
+        const name = 'statusId';
+        console.log(id);
+        console.log(target);
+        console.log(statusSubcomponentChange);
+        setStatusSubcomponent({
+            ...statusSubcomponentChange,
+            [name]: target
+        })
+        if (id && target) {
+            axios
+                .put(`${API_BASE_URL}/component-subcomponents/${id}`, {
+                    statusId: parseInt(target, 10)
+                }).then((res) => {
+                    console.log(res)
+                })
+        }
+    }
+
     useEffect(() => {
         getDeliveryData();
         getComponentsFromDelivery();
@@ -92,7 +128,8 @@ export default function UseOrderManagement() {
         handleInputAddComponentChange,
         handleSubmitAddComponent,
         componentFromDelivery,
-        subComponentsStatus
+        subComponentsStatus,
+        handleStatusSubcomponentChange
     };
 }
 

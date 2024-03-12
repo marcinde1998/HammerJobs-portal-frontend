@@ -17,9 +17,10 @@ export default function DeliveryListComponent() {
         handleInputAddComponentChange,
         handleSubmitAddComponent,
         componentFromDelivery,
-        subComponentsStatus
+        subComponentsStatus,
+        handleStatusSubcomponentChange
     } = UseComponentListFromDeliveryComponent();
-    const { addComponentForm, setAddComponentForm, addSubcomponentsForm } = useContext(DeliveryContext)
+    const { addComponentForm, setAddComponentForm, addSubcomponentsForm, setAddSubcomponentsForm } = useContext(DeliveryContext)
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
@@ -146,12 +147,29 @@ export default function DeliveryListComponent() {
                         </div>
                     </div>}
                 {addSubcomponentsForm &&
-                    <div className={styles.addComponentForm}>
+                    <div className={styles.selectStatus}>
                         <h3>Ustaw Status</h3>
-                        {subComponentsStatus && subComponentsStatus.map(list => (
-                            <div><label>{list.status.name}</label>{list.status.name}</div>
-                        ))}
-                    
+                        <form
+                            className={styles.setStatusForm}
+                            onSubmit={(() =>setAddSubcomponentsForm(false))}
+                        >
+                            {subComponentsStatus && subComponentsStatus.map(list => (
+                                <div
+                                    key={list.id}
+                                    className={styles.setStatusSelects}
+                                >
+                                    <label>{list.name}</label>
+                                    <select onChange={((e) => handleStatusSubcomponentChange(e.target.value, list.id))} required>
+                                        <option></option>
+                                        <option value={3}>OK</option>
+                                        <option value={2}>NOK</option>
+                                    </select>
+                                </div>
+                            ))}
+                            <div>
+                            <input value='Ustaw Status' type='submit'></input>
+                            </div>
+                        </form>
                     </div>}
             </div>
             <div className={styles.table}>
