@@ -7,66 +7,75 @@ export default function UseListComponent() {
 
 	const [componentList, setComponentList] = useState([]);
 	const reverseList = [...componentList].reverse();
-
-	const sortedReverseList = reverseList.sort((a, b) => b.insideNumber - a.insideNumber)
-    .map(obj => ({
-        ...obj,
-        componentSubcomponents: obj.componentSubcomponents.sort((a, b) => a.id - b.id)
-    }));
-
 	const [componentListChoiced, setComponentListChoiced] = useState([]);
+	const [sortedReverseList, setSortedReverseList] = useState([])
+	// useEffect(() => {
+	// 	const sortedList = componentListChoiced.sort((a, b) => b.insideNumber - a.insideNumber)
+	// 		.map(obj => ({
+	// 			...obj,
+	// 			componentSubcomponents: obj.componentSubcomponents.sort((a, b) => a.id - b.id)
+	// 		}));
+	// 	setSortedReverseList(sortedList);
+	// }, [componentList]);
+
+
 	const [choicedList, setChoicedList] = useState([])
 	const [insideNumber, setInsideNumber] = useState();
-	// const sortedList = choicedList.sort((a, b) => a.id - b.id);
 	const setStatuseForSubcomponents = (list: any, insideNumber) => {
-		// console.log(list)
+		console.log(list)
 		setShowChangeStatus(true)
 		setChoicedList(list)
 		setInsideNumber(insideNumber);
 	}
 	const [showListDetails, setShowListDetails] = useState(false);
 	const [showListSubcomponents, setShowListSubcomponents] = useState(false);
-	const getComponentList = () => {
-		axios.get(`${API_BASE_URL}/components`)
-			.then((res) => {
-				console.log(res.data)
-				setComponentList(res.data);
-			})
-	}
-	useEffect(() => {
-		getComponentList();
-	}, [])
 	const [listChoice, setListChoice] = useState(null);
 	const choiceClicked = (choice: { choice: any; }) => {
 		setListChoice(choice)
-		// console.log(choice)
-		const filteredComponents = reverseList.filter(item => item.componentType.name === choice.choice);
-		setComponentListChoiced(filteredComponents);
-		// console.log(filteredComponents)
+		console.log(choice)
+		getComponentList(choice.choice);
 	}
-	const [showChangeStatus, setShowChangeStatus] = useState(false)
-	
+
+	const getComponentList = (choice) => {
+		axios.get(`${API_BASE_URL}/components`)
+			.then((res) => {
+				console.log(res.data);
+				const reversedData = res.data.reverse();
+				const sortedData = reversedData.sort((a, b) => b.insideNumber - a.insideNumber)
+					.map(obj => ({
+						...obj,
+						componentSubcomponents: obj.componentSubcomponents.sort((a, b) => a.id - b.id)
+					}));
+				const filteredAndSortedData = sortedData.filter(item => item.componentType.name === choice);
+				setComponentList(filteredAndSortedData);
+			})
+	}
+	const [showChangeStatus, setShowChangeStatus] = useState(false);
+	const [selectedRow, setSelectedRow] = useState(null);
+	// useEffect(() => {
+	// 	getComponentList();
+	// }, [])
+
+
+
 	const changeSubcomponentStatus = (subcomponentId, statusId) => {
 		console.log(subcomponentId)
 		console.log(statusId)
 		axios
-		.put(`${API_BASE_URL}/component-subcomponents/${subcomponentId}`, {
-			statusId: statusId,
-		}). then((res) => {
-			console.log(res);
-			getComponentList();
-			choiceClicked(listChoice);
-		})
+			.put(`${API_BASE_URL}/component-subcomponents/${subcomponentId}`, {
+				statusId: statusId,
+			}).then((res) => {
+				console.log(res);
+				choiceClicked(listChoice);
+			})
 	}
 
-
 	// useEffect(() => {
-	// 	console.log(choicedList)
-	// 	console.log(sortedList)
-
-	// }, [choicedList, sortedList])
+	// 	console.log(componentListChoiced)
+	// }, [componentListChoiced])
 
 	return {
+		getComponentList,
 		componentList,
 		listChoice,
 		setListChoice,
@@ -82,6 +91,8 @@ export default function UseListComponent() {
 		choicedList,
 		changeSubcomponentStatus,
 		sortedReverseList,
-		insideNumber
+		insideNumber,
+		selectedRow,
+		setSelectedRow,
 	};
 }

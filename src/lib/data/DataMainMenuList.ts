@@ -26,7 +26,7 @@ export const listMainMenu = [
     {
         label: 'Magazyn',
         roles: ['admin', 'manager', 'leader', 'employee'],
-        visible: false,
+        visible: true,
         destinationURL: '/warehousemanagement'
     }
 ]
