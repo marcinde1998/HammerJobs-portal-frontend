@@ -18,7 +18,9 @@ export const LoggedUserProvider = ({ children }) => {
       try {
         const decodedToken = jwtDecode(token);
         setLoggedUser({ userId: decodedToken.id, username: decodedToken.username, roles: decodedToken.roles });
-      } 
+        // Ustawienie domyślnego nagłówka dla postów
+        axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : "";
+      }
       catch (error) {
         console.error('Error decoding JWT token:', error);
         sessionStorage.removeItem('token');
@@ -31,13 +33,13 @@ export const LoggedUserProvider = ({ children }) => {
   useEffect(() => {
     setLoggedInUserFromToken();
   }, []);
-  // Ustawienie domyślnego nagłówka dla postów
-  axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : "";
+
   // Funkcja do ustawiania zalogowanego użytkownika
   const login = (userData) => {
     setToken(userData);
     console.log(userData);
     sessionStorage.setItem('token', userData.tokenJWT)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${userData.tokenJWT}`;
   };
   // Funkcja do wylogowywania użytkownika
   const logout = () => {
@@ -45,6 +47,7 @@ export const LoggedUserProvider = ({ children }) => {
     sessionStorage.removeItem('token');
     delete axios.defaults.headers.common['Authorization'];
   };
+
   return (
     <UserContext.Provider value={{ loggedUser, login, logout, setLoggedInUserFromToken }}>
       {children}

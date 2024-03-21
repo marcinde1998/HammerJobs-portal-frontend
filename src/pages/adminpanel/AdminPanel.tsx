@@ -39,7 +39,7 @@ const AdminPanel: React.FC = () => {
     }, []);
     if (!isAuthorized) {
         return (<AccessDenied />);
-    }else if (isAuthorized) {
+    }else if (isAuthorized && loggedUser) {
         return (
             <div className={styles.wrapper}>
                 <form

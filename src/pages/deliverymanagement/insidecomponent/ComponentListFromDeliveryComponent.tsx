@@ -61,7 +61,7 @@ export default function DeliveryListComponent() {
                                         name="productionDate"
                                         value={formDataComponentAdd.productionDate}
                                         onChange={handleInputAddComponentChange}
-                                    // required
+                                        required
                                     />
                                 </div>
                                 <div>
@@ -83,6 +83,8 @@ export default function DeliveryListComponent() {
                                         name="nameOne"
                                         value={formDataComponentAdd.nameOne}
                                         onChange={handleInputAddComponentChange}
+                                        minLength={13}
+                                        maxLength={13}
                                         required
                                     />
                                 </div>
@@ -107,7 +109,6 @@ export default function DeliveryListComponent() {
                                         minLength={6}
                                         maxLength={6}
                                         pattern="[^\s]+"
-                                    // required
                                     />
                                 </div>
                                 <div>
@@ -126,14 +127,17 @@ export default function DeliveryListComponent() {
                                 </div>
                                 <div>
                                     <label htmlFor="size">Stan Magazynu:</label>
-                                    <input
-                                        type="text"
+                                    <select
                                         id="size"
                                         name="size"
                                         value={formDataComponentAdd.size}
                                         onChange={handleInputAddComponentChange}
                                         required
-                                    />
+                                    >
+                                        <option></option>
+                                        <option value="0.3">0.3</option>
+                                        <option value="1.25">1.25</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <input
@@ -151,23 +155,30 @@ export default function DeliveryListComponent() {
                         <h3>Ustaw Status</h3>
                         <form
                             className={styles.setStatusForm}
-                            onSubmit={(() =>setAddSubcomponentsForm(false))}
+                            onSubmit={(() => setAddSubcomponentsForm(false))}
                         >
                             {subComponentsStatus && subComponentsStatus.map(list => (
-                                <div
-                                    key={list.id}
-                                    className={styles.setStatusSelects}
-                                >
+                                <div key={list.id} className={styles.setStatusSelects}>
                                     <label>{list.name}</label>
-                                    <select onChange={((e) => handleStatusSubcomponentChange(e.target.value, list.id))} required>
+                                    <select onChange={(e) => handleStatusSubcomponentChange(e.target.value, list.id)} required>
                                         <option></option>
-                                        <option value={3}>OK</option>
-                                        <option value={2}>NOK</option>
+                                        {list.name === "ISS" ? (
+                                            <>
+                                                <option value={6}>N/A</option>
+                                                <option value={7}>WPROWADZONO</option>
+                                                <option value={8}>NIEWPROWADZONO</option>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <option value={3}>OK</option>
+                                                <option value={2}>NOK</option>
+                                            </>
+                                        )}
                                     </select>
                                 </div>
                             ))}
                             <div>
-                            <input value='Ustaw Status' type='submit'></input>
+                                <input value='Ustaw Status' type='submit'></input>
                             </div>
                         </form>
                     </div>}

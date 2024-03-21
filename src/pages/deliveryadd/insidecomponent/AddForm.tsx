@@ -26,7 +26,7 @@ const AddForm: React.FC = () => {
             }}
             method='POST'
         >
-            <h2>Dodaj Zamówienie</h2>
+            <h2>Dodaj Dostawę</h2>
             <label htmlFor='customerId'>Klient: </label>
             <select
                 id='customerId'

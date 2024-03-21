@@ -18,7 +18,7 @@ function NavBar() {
     return (
         <div className={styles.wrapper}>
             <Link to='/'><img className={styles.hjOutsoursing} src={hjOutsoursingNav} alt="HJOutsourcing" /></Link>
-            {/* {loggedUser && <div>{loggedUser.username}</div>} */}
+            {loggedUser && <div>{loggedUser.username}</div>}
             {loggedUser && <div className={styles.btnSegment}>
                 <Link to='/' className={styles.aBtn}>Menu</Link>
                 <button className={styles.btn} onClick={handleLogout}>Wyloguj</button>

@@ -1,0 +1,59 @@
+@import '../../lib/styles/mixins';
+@import '../../lib/styles/variables';
+
+.wrapper {
+    text-align: center;
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+
+        .tHead {
+            background-color: #3498db;
+        }
+
+        .tBody {
+            .bodyTr {
+                &:nth-child(even) {
+                    background-color: lightblue; // Ustawienie koloru tła co drugiego wiersza na szary
+                }
+
+                .tbc {
+                    background-color: yellow;
+                }
+
+                .ok {
+                    background-color: green;
+                }
+
+                .nok {
+                    background-color: red;
+                }
+
+                .naprawiono {
+                    background-color: rgb(77, 241, 77); 
+                }
+
+                td {
+                    padding: 8px;
+                    border: 1px solid $border-color-main;
+                }
+            }
+        }
+
+        .action {
+            background-color: #3498db;
+            td {
+                flex-grow: 1; // Rozciąganie komórki na całą dostępną przestrzeń
+            }
+            button {
+                width: 100%;
+                padding: 10px;
+            }
+            .naprawiono {
+                background-color: rgb(77, 241, 77); // Greenyellow z opacity 0.8
+            }
+        }
+    }
+}
